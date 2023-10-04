@@ -5,9 +5,8 @@ import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
 
-@EqualsAndHashCode(callSuper = true)
-@Data
 @Entity
+@Getter @Setter @ToString @AllArgsConstructor @NoArgsConstructor
 public class Account extends BaseEntity {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO,generator="native")

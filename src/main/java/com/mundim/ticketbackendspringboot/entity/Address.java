@@ -1,13 +1,14 @@
 package com.mundim.ticketbackendspringboot.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
-@EqualsAndHashCode(callSuper = true)
-@Data
 @Entity
+@Getter
+@Setter
+@ToString
+@AllArgsConstructor @NoArgsConstructor
 public class Address extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")

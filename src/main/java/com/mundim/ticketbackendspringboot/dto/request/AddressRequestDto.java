@@ -16,10 +16,11 @@ public class AddressRequestDto {
     private String zipcode;
 
     private String complement;
+
     @NotBlank(message = "City must not be blank")
     @Size(min = 2, max = 100, message = "City must be more than 2 characters and less 100")
-
     private String city;
+
     @Size(min = 2, max = 100, message = "Neighborhood must be more than 2 characters and less 100")
     private String neighborhood;
 
