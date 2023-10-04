@@ -7,9 +7,9 @@ services:
     environment:
       TZ: America/Sao_Paulo
       MYSQL_ROOT_PASSWORD: admin
-      MYSQL_USER: docker
+      MYSQL_USER: appaccount
       MYSQL_PASSWORD: admin
-      MYSQL_DATABASE: ticket_prod
+      MYSQL_DATABASE: ticket_db
       MYSQL_ROOT_HOST: '%'
       MYSQL_TCP_PORT: 3308
     ports:
