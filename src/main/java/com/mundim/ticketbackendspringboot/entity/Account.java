@@ -30,11 +30,6 @@ public class Account extends BaseEntity {
     @Size(min=5, message="Password must be at least 5 characters long")
     private String pwd;
 
-    @NotBlank(message="Confirm Password must not be blank")
-    @Size(min=5, message="Confirm Password must be at least 5 characters long")
-    @Transient
-    private String confirmPwd;
-
     private String profileImage;
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST, targetEntity = Roles.class)

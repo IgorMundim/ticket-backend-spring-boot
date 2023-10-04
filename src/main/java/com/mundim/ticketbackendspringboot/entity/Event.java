@@ -7,6 +7,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import org.hibernate.annotations.GenericGenerator;
 
 import java.time.LocalDateTime;
