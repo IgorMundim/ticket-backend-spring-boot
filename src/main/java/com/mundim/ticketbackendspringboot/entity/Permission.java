@@ -1,22 +1,25 @@
 package com.mundim.ticketbackendspringboot.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.GenericGenerator;
+
+import java.util.List;
 
 
 @Data
 @Entity
 @EqualsAndHashCode(callSuper = true)
-public class Roles extends  BaseEntity{
+public class Permission extends  BaseEntity{
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO,generator="native")
     @GenericGenerator(name = "native")
-    private int roleId;
+    private int id;
 
+    @Column(nullable = false, unique = true)
     private String roleName;
+
+    @OneToMany(mappedBy = "permission_id", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    private List<Account> accounts;
 }

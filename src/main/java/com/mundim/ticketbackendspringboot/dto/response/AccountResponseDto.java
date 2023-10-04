@@ -1,6 +1,7 @@
 package com.mundim.ticketbackendspringboot.dto.response;
-import com.mundim.ticketbackendspringboot.entity.Roles;
 import lombok.*;
+
+import java.security.Permission;
 
 
 @Getter
@@ -14,5 +15,5 @@ public class AccountResponseDto {
     private String email;
     private String pwd;
     private String profileImage;
-    private Roles roles;
+    private Permission permission;
 }

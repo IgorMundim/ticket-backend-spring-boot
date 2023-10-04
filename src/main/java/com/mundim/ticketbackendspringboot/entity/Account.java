@@ -1,7 +1,6 @@
 package com.mundim.ticketbackendspringboot.entity;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.*;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -14,27 +13,21 @@ public class Account extends BaseEntity {
     @GeneratedValue(strategy= GenerationType.AUTO,generator="native")
     @GenericGenerator(name = "native")
     private Long id;
-    @NotBlank(message = "Mobile number must not be blank")
-    @Pattern(regexp = "(^$|[0-9]{12})", message = "Mobile number must be 12 digits")
+
+    @Column(unique = true, length = 12)
     private String mobileNumber;
-    @NotBlank(message = "Email must not be blank")
-    @Email(message = "Please provide a valid email address")
+
+    @Column(nullable = false, unique = true, length = 150)
     private String email;
 
-    @NotBlank(message="Confirm Email must not be blank")
-    @Email(message = "Please provide a valid confirm email address" )
-    @Transient
-    private String confirmEmail;
-
-    @NotBlank(message="Password must not be blank")
-    @Size(min=5, message="Password must be at least 5 characters long")
+    @Column(nullable = false, length = 200)
     private String pwd;
 
     private String profileImage;
 
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST, targetEntity = Roles.class)
-    @JoinColumn(name = "role_id", referencedColumnName = "roleId", nullable = false)
-    private Roles roles;
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST, targetEntity = Permission.class)
+    @JoinColumn(name = "permission_id", referencedColumnName = "id")
+    private Permission permission_id;
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, targetEntity = Address.class)
     @JoinColumn(name = "address_id", referencedColumnName = "addressId")
