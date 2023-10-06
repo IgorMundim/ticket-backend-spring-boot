@@ -17,7 +17,7 @@ public class Batch extends BaseEntity{
     Long id;
 
     @Column(nullable = false)
-    int percentage;
+    Double percentage;
 
     @Column(nullable = false)
     LocalDateTime batchStopDate;
@@ -31,5 +31,5 @@ public class Batch extends BaseEntity{
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, targetEntity = Event.class)
     @JoinColumn(name = "event_id", referencedColumnName = "id")
-    private Event event_id;
+    private Event event;
 }

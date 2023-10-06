@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @ToString
 public class BatchResponseDto {
     private Long id;
-    private int percentage;
+    private Double percentage;
     private LocalDateTime batchStopDate;
     private int salesQtd;
     private String description;

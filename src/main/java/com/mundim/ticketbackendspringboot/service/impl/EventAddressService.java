@@ -55,10 +55,4 @@ public class EventAddressService implements IEventAddressService {
         return AddressMapper.toDto(address);
     }
 
-    @Override
-    public void deleteAddress(Long id) {
-
-    }
-
-
 }
