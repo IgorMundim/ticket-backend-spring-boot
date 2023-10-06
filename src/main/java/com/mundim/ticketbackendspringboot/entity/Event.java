@@ -51,7 +51,7 @@ public class Event extends BaseEntity{
     @OneToMany(mappedBy = "event", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Batch> batches;
 
-    @OneToMany(mappedBy = "event_id", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "event", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Location> location;
 
     @ManyToMany(fetch = FetchType.LAZY)

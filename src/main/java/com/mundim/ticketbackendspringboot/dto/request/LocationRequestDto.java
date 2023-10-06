@@ -1,8 +1,6 @@
 package com.mundim.ticketbackendspringboot.dto.request;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.*;
 
 @Getter
@@ -17,27 +15,24 @@ public class LocationRequestDto {
 
     private String description;
 
-    @NotBlank(message = "Is active must not be null")
+    @NotNull(message = "Is active must not be null")
     private Boolean isActive;
 
-    @NotBlank(message = "Store price must not be null")
-    @Pattern(regexp = "(^[0-9]+(\\.[0-9]{1,2})?$)")
-    private int storePrice;
+    @NotNull(message = "Store price must not be null")
+    @DecimalMin("0.0")
+    private Long storePrice;
 
-    @NotBlank(message = "Sale price must not be null")
-    @Pattern(regexp = "(^[0-9]+(\\.[0-9]{1,2})?$)")
-    private int salePrice;
+    @NotNull(message = "Sale price must not be null")
+    @DecimalMin("5.0")
+    private Long salePrice;
 
-    @NotBlank(message = "Student price must not be null")
-    @Pattern(regexp = "(^[0-9]+(\\.[0-9]{1,2})?$)")
-    private int studentPrice;
+    @NotNull(message = "Student price must not be null")
+    @DecimalMin("5.0")
+    private Long studentPrice;
 
-    @NotBlank(message = "Units solid must not be null")
-    private int units_solid;
+    @NotNull(message = "Units solid must not be null")
+    private int unitsSolid;
 
-    @NotBlank(message = "Units must not be null")
+    @NotNull(message = "Units must not be null")
     private int units;
-
-    @NotBlank(message = "Event id must not be null")
-    private Long event_id;
 }

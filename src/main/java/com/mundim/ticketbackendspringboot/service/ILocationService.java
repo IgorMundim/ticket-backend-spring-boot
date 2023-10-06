@@ -1,41 +1,36 @@
 package com.mundim.ticketbackendspringboot.service;
 
-import com.mundim.ticketbackendspringboot.dto.request.BatchRequestDto;
-import com.mundim.ticketbackendspringboot.dto.response.BatchResponseDto;
+import com.mundim.ticketbackendspringboot.dto.request.LocationRequestDto;
+import com.mundim.ticketbackendspringboot.dto.response.LocationResponseDto;
 
 import java.util.List;
 
 public interface ILocationService {
     /**
      *
-     * @param leasingDto - LeasingResponseDto Object
+     * @param locationDto - LocationResponseDto Object
      * @param id - id of event
      */
-    BatchResponseDto createBatch(BatchRequestDto batchDto, Long id);
+    LocationResponseDto createLocation(LocationRequestDto locationDto, Long id);
 
     /**
      *
-     * @param id - Input Batch ID
-     * @return Batch Details based on a given id
+     * @param id - Input Location ID
+     * @return Location Details based on a given id
      */
-    BatchResponseDto fetchBatch(Long id);
+    LocationResponseDto fetchLocation(Long id);
 
     /**
      *
-     * @param batchDto - BatchDto Object
-     * @return boolean indicating if the update of Batch details is successful or not
+     * @param locationDto - LocationDto Object
+     * @return boolean indicating if the update of Location details is successful or not
      */
-    BatchResponseDto updateBatch(BatchRequestDto batchDto, Long id);
+    LocationResponseDto updateLocation(LocationRequestDto locationDto, Long id);
 
     /**
      *
      * @param id - Event id
-     * @return - All batch by id
+     * @return - All location by id
      */
-    List<BatchResponseDto> fetchAllBatch(Long id);
-//    /**
-//     *
-//     * @param id - Input Address ID
-//     */
-//    void deleteAddress(Long id);
+    List<LocationResponseDto> fetchAllLocation(Long id);
 }

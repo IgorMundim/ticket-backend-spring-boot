@@ -23,13 +23,13 @@ public class Location extends BaseEntity{
     Boolean isActive;
 
     @Column(nullable = false)
-    int storePrice;
+    Long storePrice;
 
     @Column(nullable = false)
-    int salePrice;
+    Long salePrice;
 
     @Column(nullable = false)
-    int studentPrice;
+    Long studentPrice;
 
     @Column(nullable = false)
     int unitsSolid;
@@ -39,5 +39,5 @@ public class Location extends BaseEntity{
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, targetEntity = Event.class)
     @JoinColumn(name = "event_id", referencedColumnName = "id")
-    private Event event_id;
+    private Event event;
 }

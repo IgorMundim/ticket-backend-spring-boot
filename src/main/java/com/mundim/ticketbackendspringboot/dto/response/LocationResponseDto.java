@@ -12,9 +12,9 @@ public class LocationResponseDto {
     private String name;
     private String description;
     private Boolean isActive;
-    private int storePrice;
-    private int salePrice;
-    private int studentPrice;
-    private int units_solid;
+    private Long storePrice;
+    private Long salePrice;
+    private Long studentPrice;
+    private int unitsSolid;
     private int units;
 }

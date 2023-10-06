@@ -35,9 +35,4 @@ public interface IBatchService {
      * @return - All batch by id
      */
     List<BatchResponseDto> fetchAllBatch(Long id);
-//    /**
-//     *
-//     * @param id - Input Address ID
-//     */
-//    void deleteAddress(Long id);
 }
