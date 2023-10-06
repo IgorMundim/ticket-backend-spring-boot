@@ -6,8 +6,7 @@ import com.mundim.ticketbackendspringboot.entity.Address;
 import com.mundim.ticketbackendspringboot.entity.Event;
 import com.mundim.ticketbackendspringboot.exception.AddressAlreadyExistsException;
 import com.mundim.ticketbackendspringboot.exception.ResourceNotFoundException;
-import com.mundim.ticketbackendspringboot.mapper.AddressMapper;
-import com.mundim.ticketbackendspringboot.mapper.EventMapper;
+import com.mundim.ticketbackendspringboot.mapper.Mapper;
 import com.mundim.ticketbackendspringboot.repository.AddressRepository;
 import com.mundim.ticketbackendspringboot.repository.EventRepository;
 import com.mundim.ticketbackendspringboot.service.IEventAddressService;
@@ -30,10 +29,10 @@ public class EventAddressService implements IEventAddressService {
         if(event.getAddress() != null){
             throw new AddressAlreadyExistsException("Address already registered");
         }
-        Address address = AddressMapper.toAddress(addressDto);
+        Address address = Mapper.map(addressDto, Address.class);
         event.setAddress(address);
         eventRepository.save(event);
-        return AddressMapper.toDto(address);
+        return Mapper.map(address, AddressResponseDto.class);
     }
 
     @Override
@@ -41,7 +40,7 @@ public class EventAddressService implements IEventAddressService {
         Address address = addressRepository.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException("Address", "id", Long.toString(id))
         );
-        return AddressMapper.toDto(address);
+        return Mapper.map(address, AddressResponseDto.class);
     }
 
     @Override
@@ -49,10 +48,10 @@ public class EventAddressService implements IEventAddressService {
         addressRepository.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException("Address", "id", Long.toString(id))
         );
-        Address address = AddressMapper.toAddress(addressDto);
+        Address address = Mapper.map(addressDto, Address.class);
         address.setId(id);
         addressRepository.save(address);
-        return AddressMapper.toDto(address);
+        return Mapper.map(address, AddressResponseDto.class);
     }
 
 }
