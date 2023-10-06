@@ -52,7 +52,7 @@ public class Event extends BaseEntity{
     private List<Batch> batches;
 
     @OneToMany(mappedBy = "event_id", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Leasing> leases;
+    private List<Location> location;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "event_category", joinColumns = @JoinColumn(name = "event_id"),

@@ -10,7 +10,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class LeasingRequestDto {
+public class LocationRequestDto {
     @NotBlank(message = "Name must not be null")
     @Size(min=2, max = 100, message = "Name must not be less than 2 and more than 100")
     private String name;

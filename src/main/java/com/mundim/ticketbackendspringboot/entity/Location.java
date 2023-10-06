@@ -8,7 +8,7 @@ import org.hibernate.annotations.GenericGenerator;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @Entity
-public class Leasing extends BaseEntity{
+public class Location extends BaseEntity{
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO,generator="native")
     @GenericGenerator(name = "native")

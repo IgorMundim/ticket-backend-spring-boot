@@ -7,7 +7,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class LeasingResponseDto {
+public class LocationResponseDto {
     private Long id;
     private String name;
     private String description;
