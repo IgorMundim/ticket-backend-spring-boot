@@ -9,6 +9,7 @@ import lombok.*;
 @ToString
 public class AddressResponseDto {
     private Long id;
+    private String mobileNumber;
     private String zipcode;
     private String complement;
     private String city;

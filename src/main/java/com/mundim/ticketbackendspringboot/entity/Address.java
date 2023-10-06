@@ -13,7 +13,10 @@ public class Address extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
     @GenericGenerator(name = "native")
-    int addressId;
+    Long id;
+
+    @Column(nullable = false, length = 12)
+    private String mobileNumber;
 
     @Column(nullable = false, length = 8)
     String zipcode;

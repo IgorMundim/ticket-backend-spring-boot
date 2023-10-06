@@ -13,9 +13,6 @@ public class Account extends BaseEntity {
     @GenericGenerator(name = "native")
     private Long id;
 
-    @Column(unique = true, length = 12)
-    private String mobileNumber;
-
     @Column(nullable = false, unique = true, length = 150)
     private String email;
 
@@ -29,8 +26,8 @@ public class Account extends BaseEntity {
     private Permission permission_id;
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, targetEntity = Address.class)
-    @JoinColumn(name = "address_id", referencedColumnName = "addressId")
-    private Address address;
+    @JoinColumn(name = "address_id", referencedColumnName = "id")
+    private Address address_id;
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, targetEntity = Producer.class)
     @JoinColumn(name = "producer_id", referencedColumnName = "producerId")

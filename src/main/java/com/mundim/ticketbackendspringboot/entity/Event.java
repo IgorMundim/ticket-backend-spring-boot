@@ -21,7 +21,7 @@ public class Event extends BaseEntity{
     @Column(nullable = false, length = 100)
     String name;
 
-    @Column(columnDefinition = "bit default 1")
+    @Column(nullable = false)
     Boolean isActive;
 
     Boolean isVirtual;
@@ -31,7 +31,7 @@ public class Event extends BaseEntity{
     LocalDateTime dateEnd;
 
     @Column(nullable = false)
-    String date_start;
+    LocalDateTime  dateStart;
 
     @Column(nullable = false)
     String description;
@@ -41,8 +41,8 @@ public class Event extends BaseEntity{
 
 
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, targetEntity = Address.class)
-    @JoinColumn(name = "address_id", referencedColumnName = "addressId")
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true, targetEntity = Address.class)
+    @JoinColumn(name = "address_id", referencedColumnName = "id")
     private Address address;
 
     @OneToMany(mappedBy = "event_id", fetch = FetchType.LAZY, cascade = CascadeType.ALL)

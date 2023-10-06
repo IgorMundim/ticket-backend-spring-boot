@@ -4,7 +4,7 @@ import com.mundim.ticketbackendspringboot.dto.request.AddressRequestDto;
 import com.mundim.ticketbackendspringboot.dto.response.AddressResponseDto;
 import com.mundim.ticketbackendspringboot.entity.Address;
 import com.mundim.ticketbackendspringboot.mapper.AddressMapper;
-import com.mundim.ticketbackendspringboot.service.AddressService;
+import com.mundim.ticketbackendspringboot.service.impl.AddressService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -15,8 +15,8 @@ public class EventResponseDto {
     private Boolean isVirtual;
     private Boolean isPublished;
     private LocalDateTime dateEnd;
-    private String date_start;
+    private String dateStart;
     private String description;
-    private String videUrl;
+    private String videoUrl;
 
 }

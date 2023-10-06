@@ -11,6 +11,11 @@ import lombok.*;
 @AllArgsConstructor
 @ToString
 public class AddressRequestDto {
+
+    @NotBlank(message = "Mobile number must not be blank")
+    @Pattern(regexp = "(^$|[0-9]{12})", message = "Mobile number must be 12 digits")
+    private String mobileNumber;
+
     @NotBlank(message = "Zip code must not be blank")
     @Pattern(regexp = "(^$|[0-9]{8})", message = "Zip code must be 5 digits")
     private String zipcode;

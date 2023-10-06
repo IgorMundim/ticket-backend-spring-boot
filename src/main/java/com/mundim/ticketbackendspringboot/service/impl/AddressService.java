@@ -1,4 +1,4 @@
-package com.mundim.ticketbackendspringboot.service;
+package com.mundim.ticketbackendspringboot.service.impl;
 
 import com.mundim.ticketbackendspringboot.entity.Address;
 import com.mundim.ticketbackendspringboot.repository.AddressRepository;
