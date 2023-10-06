@@ -10,7 +10,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class loginRequestDto {
+public class LoginRequestDto {
     @NotBlank(message = "Email must not be blank")
     @Email(message = "Please provide a valid email address", regexp = "^[a-z0-9.+-]+@[a-z0-9.-]+\\.[a-z]{2,}$")
     private String email;

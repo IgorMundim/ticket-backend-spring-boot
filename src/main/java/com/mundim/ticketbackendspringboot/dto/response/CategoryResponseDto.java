@@ -12,5 +12,5 @@ public class CategoryResponseDto {
     private String name;
     private Boolean isActive;
     private String url;
-    private String alt_text;
+    private String altText;
 }

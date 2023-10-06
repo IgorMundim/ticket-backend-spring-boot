@@ -27,7 +27,7 @@ public class Category extends BaseEntity{
     String url;
 
     @Column(nullable = false, length = 100)
-    String alt_text;
+    String altText;
 
     @ManyToMany(mappedBy = "categories")
     private List<Event> events = new ArrayList<>();
