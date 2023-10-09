@@ -9,8 +9,9 @@ import java.security.Permission;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class AccountResponseDto {
+public class UserResponseDto {
     private Long id;
+    private String username;
     private String email;
     private String profileImage;
     private Permission permission;

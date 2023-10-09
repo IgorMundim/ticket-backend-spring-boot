@@ -20,6 +20,6 @@ public class Permission extends  BaseEntity{
     @Column(nullable = false, unique = true)
     private String roleName;
 
-    @OneToMany(mappedBy = "permission_id", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "permission", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     private List<Account> accounts;
 }

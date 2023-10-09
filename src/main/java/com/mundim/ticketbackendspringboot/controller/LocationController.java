@@ -1,6 +1,7 @@
 package com.mundim.ticketbackendspringboot.controller;
 
 
+import com.mundim.ticketbackendspringboot.dto.request.ImageRequestDto;
 import com.mundim.ticketbackendspringboot.dto.request.LocationRequestDto;
 import com.mundim.ticketbackendspringboot.dto.response.LocationResponseDto;
 import com.mundim.ticketbackendspringboot.service.ILocationService;
@@ -10,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RequiredArgsConstructor
 @RestController
@@ -29,6 +31,7 @@ public class LocationController {
         LocationResponseDto responseDto = iLocationService.fetchLocation(id);
         return ResponseEntity.status(200).body(responseDto);
     }
+
     @PatchMapping("/location/{id}")
     public ResponseEntity<LocationResponseDto> update(@RequestBody @Valid LocationRequestDto locationDto, @PathVariable Long id){
         LocationResponseDto responseDto = iLocationService.updateLocation(locationDto, id);
@@ -37,8 +40,12 @@ public class LocationController {
 
     @GetMapping("/{id}/location")
     public ResponseEntity<List<LocationResponseDto>> findAllByIdEvent(@PathVariable Long id){
-        List<LocationResponseDto> a = iLocationService.fetchAllLocation(id);
-        return ResponseEntity.status(200).body(a);
+        List<LocationResponseDto> responseDto = iLocationService.fetchAllLocation(id);
+        return ResponseEntity.status(200).body(responseDto);
     }
 
+    @PostMapping("/upload")
+    public ResponseEntity<?> getByString(@ModelAttribute @Valid ImageRequestDto responseDto ){
+        return ResponseEntity.status(200).body(responseDto.getUrl().getOriginalFilename());
+    }
 }

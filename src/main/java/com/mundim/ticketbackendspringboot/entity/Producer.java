@@ -10,7 +10,7 @@ import lombok.EqualsAndHashCode;
 @Entity
 public class Producer extends BaseEntity {
     @Id
-    private int producerId;
+    private int id;
 
     @Column(nullable = false,length = 100)
     String companyName;
