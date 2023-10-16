@@ -2,7 +2,6 @@ package com.mundim.ticketbackendspringboot.dto.request;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 
@@ -12,7 +11,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class RegisterRequestDto {
+public class AccountRequestDto {
 
     @NotBlank(message = "Email must not be blank")
     @Email(message = "Please provide a valid email address")

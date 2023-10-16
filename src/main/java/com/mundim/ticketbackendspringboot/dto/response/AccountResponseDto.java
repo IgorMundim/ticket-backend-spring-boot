@@ -9,7 +9,7 @@ import java.security.Permission;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class UserResponseDto {
+public class AccountResponseDto {
     private Long id;
     private String username;
     private String email;

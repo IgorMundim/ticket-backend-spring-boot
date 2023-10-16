@@ -27,7 +27,10 @@ public class SecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(
                         authorizeHttpRequests -> authorizeHttpRequests
-                                .requestMatchers(HttpMethod.GET, "/api/v1/event/**").permitAll()
+                                .requestMatchers(HttpMethod.GET, "/api/v1/event/**").hasRole("ADMIN")
+                                .requestMatchers(HttpMethod.POST,"/api/v1/auth").permitAll()
+                                .requestMatchers(HttpMethod.POST,"/api/v1/account").permitAll()
+                                .requestMatchers(HttpMethod.POST,"/api/v1/account/admin").hasRole("ADMIN")
                                 .anyRequest().authenticated()
                 ).addFilterBefore(
                         jwtAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class
