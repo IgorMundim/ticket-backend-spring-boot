@@ -1,12 +1,14 @@
 package com.mundim.ticketbackendspringboot.controller;
 
 import com.mundim.ticketbackendspringboot.dto.request.AccountRequestDto;
+import com.mundim.ticketbackendspringboot.dto.request.PasswordRequestDto;
 import com.mundim.ticketbackendspringboot.dto.response.AccountResponseDto;
-import com.mundim.ticketbackendspringboot.entity.Account;
+import com.mundim.ticketbackendspringboot.dto.response.ResponseDto;
 import com.mundim.ticketbackendspringboot.service.IAccountService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
@@ -27,8 +29,17 @@ public class AccountController {
     }
 
     @GetMapping(path = "/{id}")
+    @PreAuthorize("#id == authentication.principal.id")
     public ResponseEntity<AccountResponseDto> fetchById(@Valid @PathVariable Long id){
         AccountResponseDto responseDto = iAccountService.fetchById(id);
         return ResponseEntity.ok().body(responseDto);
     }
+
+    @PatchMapping(path = "/{id}")
+    @PreAuthorize("#id == authentication.principal.id")
+    public ResponseEntity<Void> updatePasswordById(@Valid @RequestBody PasswordRequestDto passwordDto, @PathVariable Long id){
+        iAccountService.updatePassword(id, passwordDto);
+        return ResponseEntity.noContent().build();
+    }
+
 }

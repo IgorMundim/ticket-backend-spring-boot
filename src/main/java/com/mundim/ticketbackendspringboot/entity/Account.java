@@ -3,10 +3,6 @@ package com.mundim.ticketbackendspringboot.entity;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
-import org.springframework.security.core.GrantedAuthority;
-
-import java.util.List;
-
 
 @Entity
 @Getter @Setter @ToString @AllArgsConstructor @NoArgsConstructor
@@ -32,10 +28,7 @@ public class Account extends BaseEntity {
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, targetEntity = Address.class)
     @JoinColumn(name = "address_id", referencedColumnName = "id")
-    private Address address_id;
-
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, targetEntity = Producer.class)
-    @JoinColumn(name = "producer_id", referencedColumnName = "id")
-    private Producer producer;
+    private Address address
+            ;
 
 }

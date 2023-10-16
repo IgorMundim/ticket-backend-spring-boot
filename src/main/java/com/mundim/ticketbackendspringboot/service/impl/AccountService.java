@@ -1,9 +1,11 @@
 package com.mundim.ticketbackendspringboot.service.impl;
 
 import com.mundim.ticketbackendspringboot.dto.request.AccountRequestDto;
+import com.mundim.ticketbackendspringboot.dto.request.PasswordRequestDto;
 import com.mundim.ticketbackendspringboot.dto.response.AccountResponseDto;
 import com.mundim.ticketbackendspringboot.entity.Account;
 import com.mundim.ticketbackendspringboot.entity.Permission;
+import com.mundim.ticketbackendspringboot.exception.PasswordInvalidException;
 import com.mundim.ticketbackendspringboot.exception.ResourceNotFoundException;
 import com.mundim.ticketbackendspringboot.exception.UsernameUniqueViolationException;
 import com.mundim.ticketbackendspringboot.mapper.Mapper;
@@ -60,5 +62,22 @@ public class AccountService implements IAccountService {
         );
         return  Mapper.map(account, AccountResponseDto.class);
     }
+
+    @Override
+    public Void updatePassword(Long id, PasswordRequestDto passwordDto) {
+        if(passwordDto.getNewPwd().equals(passwordDto.getOldPwd())){
+            throw new PasswordInvalidException("newPwd is the same as the oldPwd.");
+        }
+        Account account = accountRepository.findById(id).orElseThrow(
+                () -> new ResourceNotFoundException("Account", "id", Long.toString(id))
+        );
+        if(!passwordEncoder.matches(passwordDto.getOldPwd(), account.getPwd())){
+            throw new PasswordInvalidException("oldPwd is invalid.");
+        }
+        account.setPwd(passwordEncoder.encode(passwordDto.getNewPwd()));
+        accountRepository.save(account);
+        return null;
+    }
+
 
 }

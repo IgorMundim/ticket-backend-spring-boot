@@ -1,6 +1,7 @@
 package com.mundim.ticketbackendspringboot.service;
 
 import com.mundim.ticketbackendspringboot.dto.request.AccountRequestDto;
+import com.mundim.ticketbackendspringboot.dto.request.PasswordRequestDto;
 import com.mundim.ticketbackendspringboot.dto.response.AccountResponseDto;
 import com.mundim.ticketbackendspringboot.entity.Account;
 
@@ -32,4 +33,5 @@ public interface IAccountService {
      * @return Account Details base on a given id
      */
     AccountResponseDto fetchById(Long id);
+    Void updatePassword(Long id, PasswordRequestDto passwordDto);
 }
