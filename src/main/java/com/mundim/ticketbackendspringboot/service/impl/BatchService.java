@@ -24,7 +24,7 @@ public class BatchService implements IBatchService {
     private final BatchRepository batchRepository;
     @Transactional
     @Override
-    public BatchResponseDto createBatch(BatchRequestDto batchDto, Long id) {
+    public BatchResponseDto create(BatchRequestDto batchDto, Long id) {
         Event event = eventRepository.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException("Event", "id", Long.toString(id))
         );
@@ -36,7 +36,7 @@ public class BatchService implements IBatchService {
     }
 
     @Override
-    public BatchResponseDto fetchBatch(Long id) {
+    public BatchResponseDto fetch(Long id) {
         Batch batch = batchRepository.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException("Batch", "id", Long.toString(id))
         );
@@ -44,7 +44,7 @@ public class BatchService implements IBatchService {
     }
 
     @Override
-    public BatchResponseDto updateBatch(BatchRequestDto batchDto, Long id) {
+    public BatchResponseDto update(BatchRequestDto batchDto, Long id) {
         batchRepository.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException("Batch", "id", Long.toString(id))
         );
@@ -55,7 +55,7 @@ public class BatchService implements IBatchService {
     }
 
     @Override
-    public List<BatchResponseDto> fetchAllBatch(Long id) {
+    public List<BatchResponseDto> fetchAll(Long id) {
         List<Batch> batch = batchRepository.findByEventId(id);
         return  Mapper.mapList(batch, BatchResponseDto.class);
     }

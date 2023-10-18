@@ -22,24 +22,24 @@ public class LocationController {
             @RequestBody @Valid LocationRequestDto locationDto,
             @PathVariable Long id
             ){
-        LocationResponseDto responseDto = iLocationService.createLocation(locationDto, id);
+        LocationResponseDto responseDto = iLocationService.create(locationDto, id);
         return ResponseEntity.status(201).body(responseDto);
     }
     @GetMapping("/location/{id}")
     public ResponseEntity<LocationResponseDto> getById(@PathVariable Long id){
-        LocationResponseDto responseDto = iLocationService.fetchLocation(id);
+        LocationResponseDto responseDto = iLocationService.fetch(id);
         return ResponseEntity.status(200).body(responseDto);
     }
 
     @PatchMapping("/location/{id}")
     public ResponseEntity<LocationResponseDto> update(@RequestBody @Valid LocationRequestDto locationDto, @PathVariable Long id){
-        LocationResponseDto responseDto = iLocationService.updateLocation(locationDto, id);
+        LocationResponseDto responseDto = iLocationService.update(locationDto, id);
         return ResponseEntity.status(200).body(responseDto);
     }
 
     @GetMapping("/{id}/location")
     public ResponseEntity<List<LocationResponseDto>> findAllByIdEvent(@PathVariable Long id){
-        List<LocationResponseDto> responseDto = iLocationService.fetchAllLocation(id);
+        List<LocationResponseDto> responseDto = iLocationService.fetchAll(id);
         return ResponseEntity.status(200).body(responseDto);
     }
 

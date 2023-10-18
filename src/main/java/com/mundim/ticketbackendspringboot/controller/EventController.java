@@ -17,24 +17,24 @@ public class EventController {
     private final IEventService iEventService;
     @PostMapping("/")
     public ResponseEntity<EventResponseDto> create(@RequestBody @Valid EventRequestDto eventDto){
-        EventResponseDto responseDto = iEventService.createEvent(eventDto);
+        EventResponseDto responseDto = iEventService.create(eventDto);
         return ResponseEntity.status(201).body(responseDto);
     }
     @GetMapping("/{id}")
     public ResponseEntity<EventResponseDto> getById(@PathVariable Long id){
-        EventResponseDto responseDto = iEventService.fetchEvent(id);
+        EventResponseDto responseDto = iEventService.fetch(id);
         return ResponseEntity.status(200).body(responseDto);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<ResponseDto> deleteById(@PathVariable Long id){
-        iEventService.deleteEvent(id);
+        iEventService.delete(id);
         return ResponseEntity.status(200).body(new ResponseDto("Request processed successfully"));
     }
 
     @PatchMapping("/{id}")
     public ResponseEntity<EventResponseDto> update(@RequestBody @Valid EventRequestDto eventDto, @PathVariable Long id){
-        EventResponseDto responseDto = iEventService.updateEvent(eventDto, id);
+        EventResponseDto responseDto = iEventService.update(eventDto, id);
         return ResponseEntity.status(200).body(responseDto);
     }
 

@@ -11,26 +11,26 @@ public interface ILocationService {
      * @param locationDto - LocationResponseDto Object
      * @param id - id of event
      */
-    LocationResponseDto createLocation(LocationRequestDto locationDto, Long id);
+    LocationResponseDto create(LocationRequestDto locationDto, Long id);
 
     /**
      *
      * @param id - Input Location ID
      * @return Location Details based on a given id
      */
-    LocationResponseDto fetchLocation(Long id);
+    LocationResponseDto fetch(Long id);
 
     /**
      *
      * @param locationDto - LocationDto Object
      * @return boolean indicating if the update of Location details is successful or not
      */
-    LocationResponseDto updateLocation(LocationRequestDto locationDto, Long id);
+    LocationResponseDto update(LocationRequestDto locationDto, Long id);
 
     /**
      *
      * @param id - Event id
      * @return - All location by id
      */
-    List<LocationResponseDto> fetchAllLocation(Long id);
+    List<LocationResponseDto> fetchAll(Long id);
 }

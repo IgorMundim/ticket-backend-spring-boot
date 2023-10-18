@@ -22,7 +22,7 @@ public class EventAddressService implements IEventAddressService {
     private final AddressRepository addressRepository;
     @Transactional
     @Override
-    public AddressResponseDto createAddress(AddressRequestDto addressDto, Long id) {
+    public AddressResponseDto create(AddressRequestDto addressDto, Long id) {
         Event event = eventRepository.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException("Event", "id", Long.toString(id))
         );
@@ -36,7 +36,7 @@ public class EventAddressService implements IEventAddressService {
     }
 
     @Override
-    public AddressResponseDto fetchAddress(Long id) {
+    public AddressResponseDto fetch(Long id) {
         Address address = addressRepository.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException("Address", "id", Long.toString(id))
         );
@@ -44,7 +44,7 @@ public class EventAddressService implements IEventAddressService {
     }
 
     @Override
-    public AddressResponseDto updateAddress(AddressRequestDto addressDto, Long id) {
+    public AddressResponseDto update(AddressRequestDto addressDto, Long id) {
         addressRepository.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException("Address", "id", Long.toString(id))
         );

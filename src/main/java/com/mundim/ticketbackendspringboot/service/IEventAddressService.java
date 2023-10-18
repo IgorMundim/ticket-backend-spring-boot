@@ -9,14 +9,14 @@ public interface IEventAddressService {
      * @param addressDto - AddressDto Object
      * @param id - id of event
      */
-    AddressResponseDto createAddress(AddressRequestDto addressDto, Long id);
+    AddressResponseDto create(AddressRequestDto addressDto, Long id);
 
     /**
      *
      * @param id - Input Address ID
      * @return Address Details based on a given id
      */
-    AddressResponseDto fetchAddress(Long id);
+    AddressResponseDto fetch(Long id);
 
     /**
      *
@@ -24,6 +24,6 @@ public interface IEventAddressService {
      * @param id - id of event
      * @return boolean indicating if the update of Address details is successful or not
      */
-    AddressResponseDto updateAddress(AddressRequestDto addressDto, Long id);
+    AddressResponseDto update(AddressRequestDto addressDto, Long id);
 
 }

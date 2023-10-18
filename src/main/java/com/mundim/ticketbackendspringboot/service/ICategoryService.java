@@ -8,24 +8,24 @@ public interface ICategoryService {
      *
      * @param categoryDto - CategoryDto Object
      */
-    CategoryResponseDto createCategory(CategoryRequestDto categoryDto);
+    CategoryResponseDto create(CategoryRequestDto categoryDto);
 
     /**
      *
      * @param id - Input Category ID
      * @return Category Details based on a given id
      */
-    CategoryResponseDto fetchCategory(Long id);
+    CategoryResponseDto fetch(Long id);
 
     /**
      *
      * @param categoryDto - CategoryDto Object
      * @return boolean indicating if the update of Event details is successful or not
      */
-    CategoryResponseDto updateCategory(CategoryRequestDto categoryDto, Long id);
+    CategoryResponseDto update(CategoryRequestDto categoryDto, Long id);
     /**
      *
      * @param id - Input Category ID
      */
-    void deleteCategory(Long id);
+    void delete(Long id);
 }

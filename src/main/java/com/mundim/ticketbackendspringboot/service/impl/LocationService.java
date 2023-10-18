@@ -25,7 +25,7 @@ public class LocationService implements ILocationService {
     private final LocationRepository locationRepository;
     @Transactional
     @Override
-    public LocationResponseDto createLocation(LocationRequestDto locationDto, Long id) {
+    public LocationResponseDto create(LocationRequestDto locationDto, Long id) {
         Event event = eventRepository.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException("Event", "id", Long.toString(id))
         );
@@ -38,7 +38,7 @@ public class LocationService implements ILocationService {
 
 
     @Override
-    public LocationResponseDto fetchLocation(Long id) {
+    public LocationResponseDto fetch(Long id) {
         Location location = locationRepository.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException("Location", "id", Long.toString(id))
         );
@@ -46,7 +46,7 @@ public class LocationService implements ILocationService {
     }
 
     @Override
-    public LocationResponseDto updateLocation(LocationRequestDto locationDto, Long id) {
+    public LocationResponseDto update(LocationRequestDto locationDto, Long id) {
         locationRepository.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException("Location", "id", Long.toString(id))
         );
@@ -57,7 +57,7 @@ public class LocationService implements ILocationService {
     }
 
     @Override
-    public List<LocationResponseDto> fetchAllLocation(Long id) {
+    public List<LocationResponseDto> fetchAll(Long id) {
         List<Location> location = locationRepository.findByEventId(id);
         return  Mapper.mapList(location, LocationResponseDto.class);
     }

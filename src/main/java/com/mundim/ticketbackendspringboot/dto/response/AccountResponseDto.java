@@ -2,6 +2,7 @@ package com.mundim.ticketbackendspringboot.dto.response;
 import lombok.*;
 
 import java.security.Permission;
+import java.time.LocalDateTime;
 
 
 @Getter
@@ -15,4 +16,6 @@ public class AccountResponseDto {
     private String email;
     private String profileImage;
     private Permission permission;
+    private LocalDateTime updatedAt;
+    private LocalDateTime createdAt;
 }

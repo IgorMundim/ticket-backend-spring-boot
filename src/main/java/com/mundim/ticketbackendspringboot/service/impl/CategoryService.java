@@ -16,14 +16,14 @@ import org.springframework.stereotype.Service;
 public class CategoryService implements ICategoryService {
     private final CategoryRepository categoryRepository;
     @Override
-    public CategoryResponseDto createCategory(CategoryRequestDto categoryDto) {
+    public CategoryResponseDto create(CategoryRequestDto categoryDto) {
         Category category = Mapper.map(categoryDto, Category.class);
         categoryRepository.save(category);
         return Mapper.map(category, CategoryResponseDto.class);
     }
 
     @Override
-    public CategoryResponseDto fetchCategory(Long id) {
+    public CategoryResponseDto fetch(Long id) {
         Category category = categoryRepository.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException("Category", "id", Long.toString(id))
         );
@@ -31,7 +31,7 @@ public class CategoryService implements ICategoryService {
     }
 
     @Override
-    public CategoryResponseDto updateCategory(CategoryRequestDto categoryDto, Long id) {
+    public CategoryResponseDto update(CategoryRequestDto categoryDto, Long id) {
         categoryRepository.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException("Category", "id", Long.toString(id))
         );
@@ -42,7 +42,7 @@ public class CategoryService implements ICategoryService {
     }
 
     @Override
-    public void deleteCategory(Long id) {
+    public void delete(Long id) {
         categoryRepository.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException("Category", "id", Long.toString(id))
         );

@@ -20,23 +20,23 @@ public class BatchController {
             @RequestBody @Valid BatchRequestDto batchDto,
             @PathVariable Long id
             ){
-        BatchResponseDto responseDto = iBatchService.createBatch(batchDto, id);
+        BatchResponseDto responseDto = iBatchService.create(batchDto, id);
         return ResponseEntity.status(201).body(responseDto);
     }
     @GetMapping("/batch/{id}")
     public ResponseEntity<BatchResponseDto> getById(@PathVariable Long id){
-        BatchResponseDto responseDto = iBatchService.fetchBatch(id);
+        BatchResponseDto responseDto = iBatchService.fetch(id);
         return ResponseEntity.status(200).body(responseDto);
     }
     @PatchMapping("/batch/{id}")
     public ResponseEntity<BatchResponseDto> update(@RequestBody @Valid BatchRequestDto batchDto, @PathVariable Long id){
-        BatchResponseDto responseDto = iBatchService.updateBatch(batchDto, id);
+        BatchResponseDto responseDto = iBatchService.update(batchDto, id);
         return ResponseEntity.status(200).body(responseDto);
     }
 
     @GetMapping("/{id}/batch")
     public ResponseEntity<List<BatchResponseDto>> findAllByIdEvent(@PathVariable Long id){
-        List<BatchResponseDto> a = iBatchService.fetchAllBatch(id);
+        List<BatchResponseDto> a = iBatchService.fetchAll(id);
         return ResponseEntity.status(200).body(a);
     }
 

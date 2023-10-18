@@ -8,24 +8,24 @@ public interface IEventService {
      *
      * @param eventDto - EventDto Object
      */
-    EventResponseDto createEvent(EventRequestDto eventDto);
+    EventResponseDto create(EventRequestDto eventDto);
 
     /**
      *
      * @param id - Input Event ID
      * @return Event Details based on a given id
      */
-    EventResponseDto fetchEvent(Long id);
+    EventResponseDto fetch(Long id);
 
     /**
      *
      * @param eventDto - EventDto Object
      * @return boolean indicating if the update of Event details is successful or not
      */
-    EventResponseDto updateEvent(EventRequestDto eventDto, Long id);
+    EventResponseDto update(EventRequestDto eventDto, Long id);
     /**
      *
      * @param id - Input Event ID
      */
-    void deleteEvent(Long id);
+    void delete(Long id);
 }

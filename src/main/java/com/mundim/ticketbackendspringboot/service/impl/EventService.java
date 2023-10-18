@@ -18,14 +18,14 @@ public class EventService implements IEventService {
 
 
     @Override
-    public EventResponseDto createEvent(EventRequestDto eventDto) {
+    public EventResponseDto create(EventRequestDto eventDto) {
         Event event = Mapper.map(eventDto, Event.class);
         eventRepository.save(event);
         return Mapper.map(event, EventResponseDto.class);
     }
 
     @Override
-    public EventResponseDto fetchEvent(Long id) {
+    public EventResponseDto fetch(Long id) {
         Event event = eventRepository.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException("Event", "id", Long.toString(id))
         );
@@ -33,7 +33,7 @@ public class EventService implements IEventService {
     }
 
     @Override
-    public EventResponseDto updateEvent(EventRequestDto eventDto, Long id) {
+    public EventResponseDto update(EventRequestDto eventDto, Long id) {
         eventRepository.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException("Event", "id", Long.toString(id))
         );
@@ -44,7 +44,7 @@ public class EventService implements IEventService {
     }
 
     @Override
-    public void deleteEvent(Long id) {
+    public void delete(Long id) {
         eventRepository.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException("Event", "id", Long.toString(id))
         );
