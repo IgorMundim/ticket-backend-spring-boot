@@ -34,7 +34,7 @@ public class AccountService implements IAccountService {
             accountRepository.save(account);
             return Mapper.map(account, AccountResponseDto.class);
         } catch (org.springframework.dao.DataIntegrityViolationException ex){
-            throw  new UsernameUniqueViolationException(String.format("Username %s", accountDto.getUsername()));
+            throw  new UsernameUniqueViolationException(String.format("Username %s already registered", accountDto.getUsername()));
         }
     }
     @Override
@@ -47,7 +47,7 @@ public class AccountService implements IAccountService {
             accountRepository.save(account);
             return Mapper.map(account, AccountResponseDto.class);
         } catch (org.springframework.dao.DataIntegrityViolationException ex){
-            throw  new UsernameUniqueViolationException(String.format("Username %s", accountDto.getUsername()));
+            throw  new UsernameUniqueViolationException(String.format("Username %s already registered", accountDto.getUsername()));
         }
     }
     @Override

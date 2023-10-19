@@ -4,7 +4,7 @@ import com.mundim.ticketbackendspringboot.dto.request.AddressRequestDto;
 import com.mundim.ticketbackendspringboot.dto.response.AddressResponseDto;
 import com.mundim.ticketbackendspringboot.entity.Address;
 import com.mundim.ticketbackendspringboot.entity.Event;
-import com.mundim.ticketbackendspringboot.exception.AddressAlreadyExistsException;
+import com.mundim.ticketbackendspringboot.exception.AlreadyExistsException;
 import com.mundim.ticketbackendspringboot.exception.ResourceNotFoundException;
 import com.mundim.ticketbackendspringboot.mapper.Mapper;
 import com.mundim.ticketbackendspringboot.repository.AddressRepository;
@@ -27,7 +27,7 @@ public class EventAddressService implements IEventAddressService {
                 () -> new ResourceNotFoundException("Event", "id", Long.toString(id))
         );
         if(event.getAddress() != null){
-            throw new AddressAlreadyExistsException("Address already registered");
+            throw new AlreadyExistsException("Address already registered");
         }
         Address address = Mapper.map(addressDto, Address.class);
         event.setAddress(address);

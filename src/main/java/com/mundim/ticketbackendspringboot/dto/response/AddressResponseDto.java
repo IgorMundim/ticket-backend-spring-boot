@@ -1,5 +1,6 @@
 package com.mundim.ticketbackendspringboot.dto.response;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 
 @Getter
@@ -7,7 +8,11 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class AddressResponseDto {
+@Schema(
+        name = "AddressResponse",
+        description = "Schema to hold Address response information"
+)
+public class AddressResponseDto extends BaseDto{
     private Long id;
     private String mobileNumber;
     private String zipcode;

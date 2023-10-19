@@ -17,7 +17,7 @@ public class Category extends BaseEntity{
     @GenericGenerator(name = "native")
     Long id;
 
-    @Column(nullable = false, length = 100)
+    @Column(nullable = false, unique = true, length = 100)
     String name;
 
     @Column(nullable = false)

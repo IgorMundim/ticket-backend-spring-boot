@@ -1,14 +1,21 @@
 package com.mundim.ticketbackendspringboot.dto.response;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.*;
 import org.springframework.http.HttpStatus;
 
 import java.time.LocalDateTime;
 
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
 @AllArgsConstructor
-public class ErrorResponseDto {
+@ToString
+@Schema(
+        name = "ErrorResponse",
+        description = "Schema to hold Error response information"
+)
+public class ErrorResponseDto{
     private String apiPath;
     private HttpStatus errorCode;
     private String errorMessage;

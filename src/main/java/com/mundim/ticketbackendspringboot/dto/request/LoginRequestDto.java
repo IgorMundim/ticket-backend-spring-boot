@@ -1,5 +1,6 @@
 package com.mundim.ticketbackendspringboot.dto.request;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.*;
@@ -9,6 +10,10 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
+@Schema(
+        name = "Login",
+        description = "Schema to hold Login information"
+)
 public class LoginRequestDto {
     @NotBlank(message = "Username must not be blank")
     private String username;

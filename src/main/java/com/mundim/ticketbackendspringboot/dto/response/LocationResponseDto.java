@@ -1,5 +1,6 @@
 package com.mundim.ticketbackendspringboot.dto.response;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 
 @Getter
@@ -7,7 +8,11 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class LocationResponseDto {
+@Schema(
+        name = "LocationResponse",
+        description = "Schema to hold Location response information"
+)
+public class LocationResponseDto extends BaseDto{
     private Long id;
     private String name;
     private String description;

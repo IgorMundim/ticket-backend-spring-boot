@@ -3,7 +3,9 @@ package com.mundim.ticketbackendspringboot.service.impl;
 import com.mundim.ticketbackendspringboot.dto.request.CategoryRequestDto;
 import com.mundim.ticketbackendspringboot.dto.response.CategoryResponseDto;
 import com.mundim.ticketbackendspringboot.entity.Category;
+import com.mundim.ticketbackendspringboot.exception.AlreadyExistsException;
 import com.mundim.ticketbackendspringboot.exception.ResourceNotFoundException;
+import com.mundim.ticketbackendspringboot.exception.UsernameUniqueViolationException;
 import com.mundim.ticketbackendspringboot.mapper.Mapper;
 import com.mundim.ticketbackendspringboot.repository.CategoryRepository;
 import com.mundim.ticketbackendspringboot.service.ICategoryService;
@@ -15,11 +17,16 @@ import org.springframework.stereotype.Service;
 @Service
 public class CategoryService implements ICategoryService {
     private final CategoryRepository categoryRepository;
+
     @Override
     public CategoryResponseDto create(CategoryRequestDto categoryDto) {
-        Category category = Mapper.map(categoryDto, Category.class);
-        categoryRepository.save(category);
-        return Mapper.map(category, CategoryResponseDto.class);
+        try {
+            Category category = Mapper.map(categoryDto, Category.class);
+            categoryRepository.save(category);
+            return Mapper.map(category, CategoryResponseDto.class);
+        }catch (org.springframework.dao.DataIntegrityViolationException ex){
+            throw  new AlreadyExistsException(String.format("Category name %s already registered", categoryDto.getName()));
+        }
     }
 
     @Override

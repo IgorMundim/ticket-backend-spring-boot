@@ -1,5 +1,6 @@
 package com.mundim.ticketbackendspringboot.dto.request;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.*;
 import lombok.*;
 
@@ -10,6 +11,10 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
+@Schema(
+        name = "Batch",
+        description = "Schema to hold Batch information"
+)
 public class BatchRequestDto {
     @NotNull(message = "Percentage must not be null")
     @DecimalMax("100.0") @DecimalMin("5.0")

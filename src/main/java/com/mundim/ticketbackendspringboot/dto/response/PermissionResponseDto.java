@@ -9,9 +9,10 @@ import lombok.*;
 @AllArgsConstructor
 @ToString
 @Schema(
-        name = "ResponseResponse",
-        description = "Schema to hold Response information"
+        name = "PermissionResponse",
+        description = "Schema to hold Permission response information"
 )
-public class ResponseDto{
-    private String message;
+public class PermissionResponseDto extends BaseDto{
+    private Long id;
+    private String roleName;
 }

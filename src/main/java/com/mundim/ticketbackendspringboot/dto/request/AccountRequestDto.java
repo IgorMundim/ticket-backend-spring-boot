@@ -1,5 +1,6 @@
 package com.mundim.ticketbackendspringboot.dto.request;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -11,6 +12,10 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
+@Schema(
+        name = "Accounts",
+        description = "Schema to hold Account information"
+)
 public class AccountRequestDto {
     private Long id;
     @NotBlank(message = "Email must not be blank")

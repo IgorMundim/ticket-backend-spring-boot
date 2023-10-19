@@ -1,5 +1,6 @@
 package com.mundim.ticketbackendspringboot.dto.request;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -12,6 +13,10 @@ import org.springframework.web.multipart.MultipartFile;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
+@Schema(
+        name = "Image",
+        description = "Schema to hold Image information"
+)
 public class ImageRequestDto {
     @NotNull(message = "Url must not be null")
     private MultipartFile url;

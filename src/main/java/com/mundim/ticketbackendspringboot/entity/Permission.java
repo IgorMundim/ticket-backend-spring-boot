@@ -1,16 +1,15 @@
 package com.mundim.ticketbackendspringboot.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
 import java.util.List;
 
 
+@EqualsAndHashCode(callSuper = true)
 @Data
 @Entity
-@EqualsAndHashCode(callSuper = true)
 public class Permission extends  BaseEntity{
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO,generator="native")

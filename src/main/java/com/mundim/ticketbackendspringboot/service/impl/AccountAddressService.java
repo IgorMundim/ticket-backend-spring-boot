@@ -4,7 +4,7 @@ import com.mundim.ticketbackendspringboot.dto.request.AddressRequestDto;
 import com.mundim.ticketbackendspringboot.dto.response.AddressResponseDto;
 import com.mundim.ticketbackendspringboot.entity.Account;
 import com.mundim.ticketbackendspringboot.entity.Address;
-import com.mundim.ticketbackendspringboot.exception.AddressAlreadyExistsException;
+import com.mundim.ticketbackendspringboot.exception.AlreadyExistsException;
 import com.mundim.ticketbackendspringboot.exception.ResourceNotFoundException;
 import com.mundim.ticketbackendspringboot.mapper.Mapper;
 import com.mundim.ticketbackendspringboot.repository.AccountRepository;
@@ -27,7 +27,7 @@ public class AccountAddressService implements IAccountAddressService {
                 () -> new ResourceNotFoundException("Account", "id", Long.toString(id))
         );
         if(account.getAddress() != null){
-            throw new AddressAlreadyExistsException("Address already registered");
+            throw new AlreadyExistsException("Address already registered");
         }
         Address address = Mapper.map(addressDto, Address.class);
         account.setAddress(address);
