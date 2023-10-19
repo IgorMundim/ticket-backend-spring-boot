@@ -3,11 +3,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
 import org.hibernate.annotations.GenericGenerator;
 
 import java.time.LocalDateTime;
@@ -21,40 +18,41 @@ public class Event extends BaseEntity{
     @GenericGenerator(name = "native")
     Long id;
 
-    @NotBlank(message = "Name must not be null")
-    @Size(min=2, max = 100, message = "Name must not be less than 2 and more than 100")
+    @Column(nullable = false, length = 100)
     String name;
 
+    @Column(nullable = false)
     Boolean isActive;
+
     Boolean isVirtual;
     Boolean isPublished;
 
-    @NotBlank(message = "Date End must not be null")
+    @Column(nullable = false)
     LocalDateTime dateEnd;
 
-    @NotBlank(message = "Date Start must not be null")
-    String date_start;
+    @Column(nullable = false)
+    LocalDateTime  dateStart;
 
-    @NotBlank(message = "Name must not be null")
+    @Column(nullable = false)
     String description;
 
-    @NotBlank(message = "Video URL must not be null")
-    String videUrl;
+    @Column(nullable = false)
+    String videoUrl;
 
 
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, targetEntity = Address.class)
-    @JoinColumn(name = "address_id", referencedColumnName = "addressId")
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true, targetEntity = Address.class)
+    @JoinColumn(name = "address_id", referencedColumnName = "id")
     private Address address;
 
     @OneToMany(mappedBy = "event_id", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Image> images;
 
-    @OneToMany(mappedBy = "event_id", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "event", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Batch> batches;
 
-    @OneToMany(mappedBy = "event_id", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Leasing> leases;
+    @OneToMany(mappedBy = "event", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Location> location;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "event_category", joinColumns = @JoinColumn(name = "event_id"),

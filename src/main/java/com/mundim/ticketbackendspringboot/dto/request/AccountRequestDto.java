@@ -1,8 +1,8 @@
 package com.mundim.ticketbackendspringboot.dto.request;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 
@@ -12,15 +12,18 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class RegisterRequestDto {
-
-    @NotBlank(message = "Mobile number must not be blank")
-    @Pattern(regexp = "(^$|[0-9]{12})", message = "Mobile number must be 12 digits")
-    private String mobileNumber;
-
+@Schema(
+        name = "Accounts",
+        description = "Schema to hold Account information"
+)
+public class AccountRequestDto {
+    private Long id;
     @NotBlank(message = "Email must not be blank")
     @Email(message = "Please provide a valid email address")
     private String email;
+
+    @NotBlank(message = "Username must not be blank")
+    private String username;
 
     @NotBlank(message="Password must not be blank")
     @Size(min=5, message="Password must be at least 5 characters long")

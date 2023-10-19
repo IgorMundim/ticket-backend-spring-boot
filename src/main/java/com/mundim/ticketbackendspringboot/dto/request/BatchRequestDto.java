@@ -1,7 +1,7 @@
 package com.mundim.ticketbackendspringboot.dto.request;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -11,23 +11,23 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
+@Schema(
+        name = "Batch",
+        description = "Schema to hold Batch information"
+)
 public class BatchRequestDto {
-    @NotBlank(message = "Percentage must not be null")
-    @Pattern(regexp = "(^[0-9]+(\\.[0-9]{1,2})?$)")
-    private int percentage;
+    @NotNull(message = "Percentage must not be null")
+    @DecimalMax("100.0") @DecimalMin("5.0")
+    private Double percentage;
 
-    @NotBlank(message = "Batch stop date must not be null")
+    @Future(message = "Batch stop must be an instant, date or time in the future")
     private LocalDateTime batchStopDate;
 
-    @NotBlank(message = "Sales quantity must not be null")
+    @NotNull(message = "Sales quantity must not be null")
     private int salesQtd;
 
     private String description;
 
-    @NotBlank(message = "Is active must not be null")
+    @NotNull(message = "Is active must not be null")
     private Boolean isActive;
-
-    @NotBlank(message = "Event id must not be null")
-    @Pattern(regexp = "(^\\d+$)")
-    private Long event_id;
 }

@@ -1,5 +1,6 @@
 package com.mundim.ticketbackendspringboot.dto.request;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
@@ -10,16 +11,26 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
+@Schema(
+        name = "Address",
+        description = "Schema to hold Address information"
+)
 public class AddressRequestDto {
+
+    @NotBlank(message = "Mobile number must not be blank")
+    @Pattern(regexp = "(^$|[0-9]{12})", message = "Mobile number must be 12 digits")
+    private String mobileNumber;
+
     @NotBlank(message = "Zip code must not be blank")
     @Pattern(regexp = "(^$|[0-9]{8})", message = "Zip code must be 5 digits")
     private String zipcode;
 
     private String complement;
+
     @NotBlank(message = "City must not be blank")
     @Size(min = 2, max = 100, message = "City must be more than 2 characters and less 100")
-
     private String city;
+
     @Size(min = 2, max = 100, message = "Neighborhood must be more than 2 characters and less 100")
     private String neighborhood;
 

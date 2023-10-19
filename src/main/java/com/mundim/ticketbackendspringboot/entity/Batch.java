@@ -1,8 +1,6 @@
 package com.mundim.ticketbackendspringboot.entity;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.GenericGenerator;
@@ -18,22 +16,20 @@ public class Batch extends BaseEntity{
     @GenericGenerator(name = "native")
     Long id;
 
-    @NotBlank(message = "Percentage must not be null")
-    @Pattern(regexp = "(^[0-9]+(\\.[0-9]{1,2})?$)")
-    int percentage;
+    @Column(nullable = false)
+    Double percentage;
 
-    @NotBlank(message = "Batch stop date must not be null")
+    @Column(nullable = false)
     LocalDateTime batchStopDate;
 
-    @NotBlank(message = "Sales quantity must not be null")
-    int salesQtd;
+    int salesQtd = 0;
 
     String description;
 
-    @NotBlank(message = "Is active must not be null")
+    @Column(columnDefinition = "bit default 1")
     Boolean isActive;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, targetEntity = Event.class)
     @JoinColumn(name = "event_id", referencedColumnName = "id")
-    private Event event_id;
+    private Event event;
 }

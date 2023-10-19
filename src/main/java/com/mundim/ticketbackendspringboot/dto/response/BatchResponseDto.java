@@ -1,5 +1,6 @@
 package com.mundim.ticketbackendspringboot.dto.response;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -9,9 +10,13 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class BatchResponseDto {
+@Schema(
+        name = "BatchResponse",
+        description = "Schema to hold Batch response information"
+)
+public class BatchResponseDto extends BaseDto{
     private Long id;
-    private int percentage;
+    private Double percentage;
     private LocalDateTime batchStopDate;
     private int salesQtd;
     private String description;
