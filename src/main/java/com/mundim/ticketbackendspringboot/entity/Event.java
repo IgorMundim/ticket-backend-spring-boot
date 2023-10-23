@@ -39,12 +39,6 @@ public class Event extends BaseEntity{
     @Column(nullable = false)
     String videoUrl;
 
-
-
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true, targetEntity = Address.class)
-    @JoinColumn(name = "address_id", referencedColumnName = "id")
-    private Address address;
-
     @OneToMany(mappedBy = "event_id", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Image> images;
 

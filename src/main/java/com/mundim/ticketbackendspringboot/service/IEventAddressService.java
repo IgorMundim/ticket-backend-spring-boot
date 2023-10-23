@@ -20,6 +20,13 @@ public interface IEventAddressService {
 
     /**
      *
+     * @param id - Input Event ID
+     * @return Address Details based on a given id
+     */
+    AddressResponseDto fetchByEventId(Long id);
+
+    /**
+     *
      * @param addressDto - AddressDto Object
      * @param id - id of event
      * @return boolean indicating if the update of Address details is successful or not

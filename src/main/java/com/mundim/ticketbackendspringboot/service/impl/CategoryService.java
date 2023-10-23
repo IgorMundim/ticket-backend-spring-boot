@@ -5,12 +5,13 @@ import com.mundim.ticketbackendspringboot.dto.response.CategoryResponseDto;
 import com.mundim.ticketbackendspringboot.entity.Category;
 import com.mundim.ticketbackendspringboot.exception.AlreadyExistsException;
 import com.mundim.ticketbackendspringboot.exception.ResourceNotFoundException;
-import com.mundim.ticketbackendspringboot.exception.UsernameUniqueViolationException;
 import com.mundim.ticketbackendspringboot.mapper.Mapper;
 import com.mundim.ticketbackendspringboot.repository.CategoryRepository;
 import com.mundim.ticketbackendspringboot.service.ICategoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 
 @RequiredArgsConstructor
@@ -37,6 +38,17 @@ public class CategoryService implements ICategoryService {
         return Mapper.map(category, CategoryResponseDto.class);
     }
 
+    @Override
+    public List<CategoryResponseDto> fetchAllByEventId(Long id) {
+        List<Category> category = categoryRepository.findByEventsId(id);
+        return Mapper.mapList(category, CategoryResponseDto.class);
+    }
+
+    @Override
+    public List<CategoryResponseDto> fetchAll() {
+        List<Category> category = categoryRepository.findAll();
+        return Mapper.mapList(category, CategoryResponseDto.class);
+    }
     @Override
     public CategoryResponseDto update(CategoryRequestDto categoryDto, Long id) {
         categoryRepository.findById(id).orElseThrow(

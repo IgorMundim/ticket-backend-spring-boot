@@ -6,6 +6,7 @@ import lombok.*;
 
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 
 @Getter
@@ -42,5 +43,9 @@ public class EventRequestDto {
 
     @NotBlank(message = "Video URL must not be null")
     private String videoUrl;
+
+    List<CategoryRequestDto> categories;
+
+    private AddressRequestDto address;
 
 }

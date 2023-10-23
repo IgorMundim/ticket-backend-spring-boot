@@ -16,6 +16,8 @@ import lombok.*;
         description = "Schema to hold Category information"
 )
 public class CategoryRequestDto {
+    private Long id;
+
     @NotBlank(message = "Name must not be null")
     @Size(min=2, max = 100, message = "Name must not be less than 2 and more than 100")
     private String name;
@@ -29,4 +31,5 @@ public class CategoryRequestDto {
     @NotBlank(message = "Alt text must not be null")
     @Size(min=2, max = 100, message = "Alt text must not be less than 2 and more than 100")
     private String altText;
+
 }

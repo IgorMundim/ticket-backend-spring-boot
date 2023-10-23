@@ -18,6 +18,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 
 @Tag(
         name = "CRUD REST APIs for Category",
@@ -25,7 +27,7 @@ import org.springframework.web.bind.annotation.*;
 )
 @RequiredArgsConstructor
 @RestController
-@RequestMapping(path="api/v1/category", produces = {MediaType.APPLICATION_JSON_VALUE})
+@RequestMapping(path="api/v1", produces = {MediaType.APPLICATION_JSON_VALUE})
 public class CategoryController {
     private final ICategoryService iCategoryService;
     @Operation(
@@ -64,7 +66,7 @@ public class CategoryController {
     }
     )
     @SecurityRequirement(name = "basicAuth")
-    @PostMapping("/")
+    @PostMapping("/category")
     public ResponseEntity<CategoryResponseDto> create(@RequestBody @Valid CategoryRequestDto categoryDto){
         CategoryResponseDto responseDto = iCategoryService.create(categoryDto);
         return ResponseEntity.status(201).body(responseDto);
@@ -94,9 +96,37 @@ public class CategoryController {
             )
     }
     )
-    @GetMapping("/{id}")
+    @GetMapping("/category/{id}")
     public ResponseEntity<CategoryResponseDto> getById(@PathVariable Long id){
         CategoryResponseDto responseDto = iCategoryService.fetch(id);
+        return ResponseEntity.status(200).body(responseDto);
+    }
+    @Operation(
+            summary = "Fetch Category REST API",
+            description = "REST API to fetch Category"
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "HTTP Status OK"
+            ),
+            @ApiResponse(
+                    responseCode = "500",
+                    description = "HTTP Status Internal Server Error",
+                    content = @Content(
+                            schema = @Schema(implementation = ErrorResponseDto.class)
+                    )
+            )
+    }
+    )
+    @GetMapping("/category/")
+    public ResponseEntity<List<CategoryResponseDto>> getAll(){
+        List<CategoryResponseDto> responseDto = iCategoryService.fetchAll();
+        return ResponseEntity.status(200).body(responseDto);
+    }
+    @GetMapping("/event/{id}/category")
+    public ResponseEntity<List<CategoryResponseDto>> getAllByEventId(@PathVariable Long id){
+        List<CategoryResponseDto> responseDto = iCategoryService.fetchAllByEventId(id);
         return ResponseEntity.status(200).body(responseDto);
     }
     @Operation(
@@ -136,7 +166,7 @@ public class CategoryController {
     }
     )
     @SecurityRequirement(name = "basicAuth")
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/category/{id}")
     public ResponseEntity<ResponseDto> deleteById(@PathVariable Long id){
         iCategoryService.delete(id);
         return ResponseEntity.status(200).body(new ResponseDto("Request processed successfully"));
@@ -177,7 +207,7 @@ public class CategoryController {
     }
     )
     @SecurityRequirement(name = "basicAuth")
-    @PatchMapping("/{id}")
+    @PatchMapping("/category/{id}")
     public ResponseEntity<CategoryResponseDto> update(@RequestBody @Valid CategoryRequestDto eventDto, @PathVariable Long id){
         CategoryResponseDto responseDto = iCategoryService.update(eventDto, id);
         return ResponseEntity.status(200).body(responseDto);

@@ -1,9 +1,7 @@
 package com.mundim.ticketbackendspringboot.service.impl;
 
 import com.mundim.ticketbackendspringboot.dto.request.LocationRequestDto;
-import com.mundim.ticketbackendspringboot.dto.response.BatchResponseDto;
 import com.mundim.ticketbackendspringboot.dto.response.LocationResponseDto;
-import com.mundim.ticketbackendspringboot.entity.Batch;
 import com.mundim.ticketbackendspringboot.entity.Event;
 import com.mundim.ticketbackendspringboot.entity.Location;
 import com.mundim.ticketbackendspringboot.exception.ResourceNotFoundException;

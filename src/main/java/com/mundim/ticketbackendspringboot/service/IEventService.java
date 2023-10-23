@@ -2,6 +2,9 @@ package com.mundim.ticketbackendspringboot.service;
 
 import com.mundim.ticketbackendspringboot.dto.request.EventRequestDto;
 import com.mundim.ticketbackendspringboot.dto.response.EventResponseDto;
+import org.springframework.data.domain.Pageable;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.PagedModel;
 
 public interface IEventService {
     /**
@@ -16,6 +19,14 @@ public interface IEventService {
      * @return Event Details based on a given id
      */
     EventResponseDto fetch(Long id);
+
+    /**
+     *
+     * @param pageable - Input Pageable
+     * @return Event Details based on a pageable
+     */
+    PagedModel<EntityModel<EventResponseDto>> findAll(Pageable pageable);
+
 
     /**
      *

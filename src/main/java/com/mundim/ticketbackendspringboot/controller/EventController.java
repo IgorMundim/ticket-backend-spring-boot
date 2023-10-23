@@ -14,9 +14,15 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.PagedModel;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 
 
 @Tag(
@@ -92,6 +98,44 @@ public class EventController {
         EventResponseDto responseDto = iEventService.fetch(id);
         return ResponseEntity.status(200).body(responseDto);
     }
+
+    @Operation(
+            summary = "Fetch Event REST API",
+            description = "REST API to fetch Event"
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "HTTP Status OK"
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "Resource not found with the given input data",
+                    content = @Content(
+                            schema = @Schema(implementation = ErrorResponseDto.class)
+                    )
+            ),
+            @ApiResponse(
+                    responseCode = "500",
+                    description = "HTTP Status Internal Server Error",
+                    content = @Content(
+                            schema = @Schema(implementation = ErrorResponseDto.class)
+                    )
+            )
+    }
+    )
+    @GetMapping("/")
+    public ResponseEntity<PagedModel<EntityModel<EventResponseDto>>> findAll(
+            @RequestParam(value = "page", defaultValue = "0") Integer page,
+            @RequestParam(value = "size", defaultValue = "12") Integer size,
+            @RequestParam(value = "direction", defaultValue = "asc") String direction
+    ){
+        var sortDirection = "desc".equalsIgnoreCase(direction)
+                ? Sort.Direction.DESC : Sort.Direction.ASC;
+        Pageable pageable = PageRequest.of(page,size, Sort.by(sortDirection, "id"));
+        PagedModel<EntityModel<EventResponseDto>> responseDto = iEventService.findAll(pageable);
+        return ResponseEntity.status(200).body(responseDto);
+    }
     @Operation(
             summary = "DELETE Event REST API",
             description = "REST API to delete Event"
@@ -123,7 +167,7 @@ public class EventController {
     )
     @SecurityRequirement(name = "basicAuth")
     @DeleteMapping("/{id}")
-    public ResponseEntity<ResponseDto> deleteById(@PathVariable Long id){
+    public ResponseEntity<ResponseDto> delete(@PathVariable Long id){
         iEventService.delete(id);
         return ResponseEntity.status(200).body(new ResponseDto("Request processed successfully"));
     }
