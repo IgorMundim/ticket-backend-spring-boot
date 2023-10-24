@@ -1,5 +1,7 @@
 package com.mundim.ticketbackendspringboot.service.impl;
 
+import com.mundim.ticketbackendspringboot.controller.AccountController;
+import com.mundim.ticketbackendspringboot.controller.PermissionController;
 import com.mundim.ticketbackendspringboot.dto.request.AccountRequestDto;
 import com.mundim.ticketbackendspringboot.dto.request.PasswordRequestDto;
 import com.mundim.ticketbackendspringboot.dto.response.AccountResponseDto;
@@ -15,6 +17,9 @@ import com.mundim.ticketbackendspringboot.service.IAccountService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 
 @RequiredArgsConstructor
@@ -32,7 +37,8 @@ public class AccountService implements IAccountService {
             account.setPwd(passwordEncoder.encode(account.getPwd()));
             account.setPermission(permission);
             accountRepository.save(account);
-            return Mapper.map(account, AccountResponseDto.class);
+            return Mapper.map(account, AccountResponseDto.class)
+                    .add(linkTo(methodOn(AccountController.class).getById(account.getId())).withSelfRel());
         } catch (org.springframework.dao.DataIntegrityViolationException ex){
             throw  new UsernameUniqueViolationException(String.format("Username %s already registered", accountDto.getUsername()));
         }
@@ -45,7 +51,8 @@ public class AccountService implements IAccountService {
             account.setPwd(passwordEncoder.encode(account.getPwd()));
             account.setPermission(permission);
             accountRepository.save(account);
-            return Mapper.map(account, AccountResponseDto.class);
+            return Mapper.map(account, AccountResponseDto.class)
+                    .add(linkTo(methodOn(AccountController.class).getById(account.getId())).withSelfRel());
         } catch (org.springframework.dao.DataIntegrityViolationException ex){
             throw  new UsernameUniqueViolationException(String.format("Username %s already registered", accountDto.getUsername()));
         }
@@ -60,7 +67,8 @@ public class AccountService implements IAccountService {
         Account account = accountRepository.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException("Account", "id", Long.toString(id))
         );
-        return  Mapper.map(account, AccountResponseDto.class);
+        return  Mapper.map(account, AccountResponseDto.class)
+                .add(linkTo(methodOn(AccountController.class).getById(account.getId())).withSelfRel());
     }
 
     @Override

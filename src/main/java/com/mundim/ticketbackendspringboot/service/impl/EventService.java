@@ -18,8 +18,6 @@ import org.springframework.hateoas.Link;
 import org.springframework.hateoas.PagedModel;
 import org.springframework.stereotype.Service;
 
-
-
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
@@ -36,9 +34,9 @@ public class EventService implements IEventService {
         return Mapper.map(event, EventResponseDto.class)
                 .add(linkTo(methodOn(EventController.class).getById(event.getId())).withSelfRel())
                 .add(linkTo(methodOn(LocationController.class).findAllByIdEvent(event.getId())).withRel("Locations"))
-                .add(linkTo(methodOn(BatchController.class).findAllByIdEvent(event.getId())).withRel("Batch"))
+                .add(linkTo(methodOn(BatchController.class).getAllByIdEvent(event.getId())).withRel("Batch"))
                 .add(linkTo(methodOn(CategoryController.class).getAllByEventId(event.getId())).withRel("Category"))
-                .add(linkTo(methodOn(EventAddressController.class).findByIdEvent(event.getId())).withRel("Address"));
+                .add(linkTo(methodOn(EventAddressController.class).getByEventId(event.getId())).withRel("Address"));
     }
 
     @Override
@@ -49,9 +47,9 @@ public class EventService implements IEventService {
         return Mapper.map(event, EventResponseDto.class)
                 .add(linkTo(methodOn(EventController.class).getById(id)).withSelfRel())
                 .add(linkTo(methodOn(LocationController.class).findAllByIdEvent(id)).withRel("Locations"))
-                .add(linkTo(methodOn(BatchController.class).findAllByIdEvent(id)).withRel("Batch"))
+                .add(linkTo(methodOn(BatchController.class).getAllByIdEvent(id)).withRel("Batch"))
                 .add(linkTo(methodOn(CategoryController.class).getAllByEventId(id)).withRel("Category"))
-                .add(linkTo(methodOn(EventAddressController.class).findByIdEvent(id)).withRel("Address"));
+                .add(linkTo(methodOn(EventAddressController.class).getByEventId(id)).withRel("Address"));
     }
 
     @Override
@@ -60,9 +58,9 @@ public class EventService implements IEventService {
         var eventPageDto = eventPage.map(p -> Mapper.map(p, EventResponseDto.class)
                 .add(linkTo(methodOn(EventController.class).getById(p.getId())).withSelfRel())
                 .add(linkTo(methodOn(LocationController.class).findAllByIdEvent(p.getId())).withRel("Locations"))
-                .add(linkTo(methodOn(BatchController.class).findAllByIdEvent(p.getId())).withRel("Batch"))
+                .add(linkTo(methodOn(BatchController.class).getAllByIdEvent(p.getId())).withRel("Batch"))
                 .add(linkTo(methodOn(CategoryController.class).getAllByEventId(p.getId())).withRel("Category"))
-                .add(linkTo(methodOn(EventAddressController.class).findByIdEvent(p.getId())).withRel("Address"))
+                .add(linkTo(methodOn(EventAddressController.class).getByEventId(p.getId())).withRel("Address"))
         );
         Link link = linkTo(methodOn(EventController.class)
                 .findAll(pageable.getPageNumber(), pageable.getPageSize(), "asc")).withSelfRel();
@@ -86,9 +84,9 @@ public class EventService implements IEventService {
         eventRepository.save(event);
         return Mapper.map(event, EventResponseDto.class).add(linkTo(methodOn(EventController.class).getById(id)).withSelfRel())
                 .add(linkTo(methodOn(LocationController.class).findAllByIdEvent(id)).withRel("Locations"))
-                .add(linkTo(methodOn(BatchController.class).findAllByIdEvent(id)).withRel("Batch"))
+                .add(linkTo(methodOn(BatchController.class).getAllByIdEvent(id)).withRel("Batch"))
                 .add(linkTo(methodOn(CategoryController.class).getAllByEventId(id)).withRel("Category"))
-                .add(linkTo(methodOn(EventAddressController.class).findByIdEvent(id)).withRel("Address"));
+                .add(linkTo(methodOn(EventAddressController.class).getByEventId(id)).withRel("Address"));
     }
 
     @Override

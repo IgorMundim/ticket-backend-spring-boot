@@ -1,11 +1,7 @@
 package com.mundim.ticketbackendspringboot.dto.response;
-
-import jakarta.persistence.Column;
 import jakarta.persistence.MappedSuperclass;
 import lombok.*;
-import org.springframework.data.annotation.CreatedBy;
-import org.springframework.data.annotation.LastModifiedBy;
-import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.hateoas.RepresentationModel;
 
 import java.time.LocalDateTime;
 @MappedSuperclass

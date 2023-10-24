@@ -1,5 +1,6 @@
 package com.mundim.ticketbackendspringboot.service.impl;
 
+import com.mundim.ticketbackendspringboot.controller.PermissionController;
 import com.mundim.ticketbackendspringboot.dto.request.PermissionRequestDto;
 import com.mundim.ticketbackendspringboot.dto.response.PermissionResponseDto;
 import com.mundim.ticketbackendspringboot.entity.Permission;
@@ -13,6 +14,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+
 
 @RequiredArgsConstructor
 @Service
@@ -23,7 +27,8 @@ public class PermissionService implements IPermissionService {
         try{
             Permission permission = Mapper.map(permissionDto, Permission.class);
             permissionRepository.save(permission);
-            return Mapper.map(permission, PermissionResponseDto.class);
+            return Mapper.map(permission, PermissionResponseDto.class)
+                    .add(linkTo(methodOn(PermissionController.class).getById(permission.getId())).withSelfRel());
         }catch (org.springframework.dao.DataIntegrityViolationException ex){
             throw  new AlreadyExistsException(String.format("Permission name %s already registered", permissionDto.getRoleName()));
         }
@@ -34,7 +39,8 @@ public class PermissionService implements IPermissionService {
         Permission permission = permissionRepository.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException("Permission", "id", Integer.toString(id))
         );
-        return Mapper.map(permission, PermissionResponseDto.class);
+        return Mapper.map(permission, PermissionResponseDto.class)
+                .add(linkTo(methodOn(PermissionController.class).getById(permission.getId())).withSelfRel());
     }
 
     @Override
@@ -45,12 +51,15 @@ public class PermissionService implements IPermissionService {
         Permission permission = Mapper.map(permissionDto, Permission.class);
         permission.setId(id);
         permissionRepository.save(permission);
-        return Mapper.map(permission, PermissionResponseDto.class);
+        return Mapper.map(permission, PermissionResponseDto.class)
+                .add(linkTo(methodOn(PermissionController.class).getById(permission.getId())).withSelfRel());
     }
 
     @Override
     public List<PermissionResponseDto> fetchAll() {
-        List<Permission> permissions = permissionRepository.findAll();
+        List<PermissionResponseDto> permissions = Mapper.mapList(permissionRepository.findAll(), PermissionResponseDto.class);
+        permissions.forEach(p -> Mapper.map(p, PermissionResponseDto.class)
+                .add(linkTo(methodOn(PermissionController.class).getById(p.getId())).withSelfRel()));
         return  Mapper.mapList(permissions, PermissionResponseDto.class);
     }
 

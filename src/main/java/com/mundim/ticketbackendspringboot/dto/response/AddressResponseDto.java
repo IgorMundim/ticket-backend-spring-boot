@@ -2,6 +2,7 @@ package com.mundim.ticketbackendspringboot.dto.response;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
+import org.springframework.hateoas.RepresentationModel;
 
 @Getter
 @Setter
@@ -12,7 +13,7 @@ import lombok.*;
         name = "AddressResponse",
         description = "Schema to hold Address response information"
 )
-public class AddressResponseDto extends BaseDto{
+public class AddressResponseDto extends RepresentationModel<AddressResponseDto> {
     private Long id;
     private String mobileNumber;
     private String zipcode;

@@ -1,5 +1,8 @@
 package com.mundim.ticketbackendspringboot.service.impl;
 
+import com.mundim.ticketbackendspringboot.controller.EventAddressController;
+import com.mundim.ticketbackendspringboot.controller.EventController;
+import com.mundim.ticketbackendspringboot.controller.LocationController;
 import com.mundim.ticketbackendspringboot.dto.request.AddressRequestDto;
 import com.mundim.ticketbackendspringboot.dto.response.AddressResponseDto;
 import com.mundim.ticketbackendspringboot.entity.Event;
@@ -13,6 +16,9 @@ import com.mundim.ticketbackendspringboot.service.IEventAddressService;
 import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 
 @RequiredArgsConstructor
@@ -58,7 +64,9 @@ public class EventAddressService implements IEventAddressService {
         EventAddress address = Mapper.map(addressDto, EventAddress.class);
         address.setId(id);
         eventAddressRepository.save(address);
-        return Mapper.map(address, AddressResponseDto.class);
+        return Mapper.map(address, AddressResponseDto.class)
+                .add(linkTo(methodOn(EventAddressController.class).getByEventId(address.getId())).withSelfRel())
+                .add(linkTo(methodOn(EventController.class).getById(address.getEvent().getId())).withRel("Event"));
     }
 
 }

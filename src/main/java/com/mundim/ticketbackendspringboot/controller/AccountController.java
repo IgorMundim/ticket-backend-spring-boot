@@ -126,7 +126,7 @@ public class AccountController {
     @SecurityRequirement(name = "basicAuth")
     @GetMapping(path = "/{id}")
     @PreAuthorize("#id == authentication.principal.id")
-    public ResponseEntity<AccountResponseDto> fetchById(@Valid @PathVariable Long id){
+    public ResponseEntity<AccountResponseDto> getById(@Valid @PathVariable Long id){
         AccountResponseDto responseDto = iAccountService.fetchById(id);
         return ResponseEntity.ok().body(responseDto);
     }

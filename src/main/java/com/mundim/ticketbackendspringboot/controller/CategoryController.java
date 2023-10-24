@@ -167,7 +167,7 @@ public class CategoryController {
     )
     @SecurityRequirement(name = "basicAuth")
     @DeleteMapping("/category/{id}")
-    public ResponseEntity<ResponseDto> deleteById(@PathVariable Long id){
+    public ResponseEntity<ResponseDto> delete(@PathVariable Long id){
         iCategoryService.delete(id);
         return ResponseEntity.status(200).body(new ResponseDto("Request processed successfully"));
     }

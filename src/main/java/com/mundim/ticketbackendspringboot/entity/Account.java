@@ -30,8 +30,4 @@ public class Account extends BaseEntity {
     @JoinColumn(name = "permission_id", referencedColumnName = "id")
     private Permission permission;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, targetEntity = Address.class)
-    @JoinColumn(name = "address_id", referencedColumnName = "id")
-    private Address address;
-
 }

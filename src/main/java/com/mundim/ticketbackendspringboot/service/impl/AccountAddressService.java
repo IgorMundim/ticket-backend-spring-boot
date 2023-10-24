@@ -1,5 +1,7 @@
 package com.mundim.ticketbackendspringboot.service.impl;
 
+import com.mundim.ticketbackendspringboot.controller.AccountAddressController;
+import com.mundim.ticketbackendspringboot.controller.AccountController;
 import com.mundim.ticketbackendspringboot.dto.request.AddressRequestDto;
 import com.mundim.ticketbackendspringboot.dto.response.AddressResponseDto;
 import com.mundim.ticketbackendspringboot.entity.Account;
@@ -14,6 +16,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+
 
 @RequiredArgsConstructor
 @Service
@@ -26,13 +31,16 @@ public class AccountAddressService implements IAccountAddressService {
         Account account = accountRepository.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException("Account", "id", Long.toString(id))
         );
-        if(account.getAddress() != null){
+        Address address = Mapper.map(addressDto, Address.class);
+        try{
+            address.setAccount(account);
+            addressRepository.save(address);
+        } catch (Exception ex){
             throw new AlreadyExistsException("Address already registered");
         }
-        Address address = Mapper.map(addressDto, Address.class);
-        account.setAddress(address);
-        accountRepository.save(account);
-        return Mapper.map(address, AddressResponseDto.class);
+        return Mapper.map(address, AddressResponseDto.class)
+                .add(linkTo(methodOn(AccountAddressController.class).getById(address.getId())).withSelfRel())
+                .add(linkTo(methodOn(AccountController.class).getById(id)).withRel("Account"));
     }
 
     @Override
@@ -40,7 +48,9 @@ public class AccountAddressService implements IAccountAddressService {
         Address address = addressRepository.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException("Address", "id", Long.toString(id))
         );
-        return Mapper.map(address, AddressResponseDto.class);
+        return Mapper.map(address, AddressResponseDto.class)
+                .add(linkTo(methodOn(AccountAddressController.class).getById(address.getId())).withSelfRel())
+                .add(linkTo(methodOn(AccountController.class).getById(id)).withRel("Account"));
     }
 
     @Override
@@ -51,7 +61,9 @@ public class AccountAddressService implements IAccountAddressService {
         Address address = Mapper.map(addressDto, Address.class);
         address.setId(id);
         addressRepository.save(address);
-        return Mapper.map(address, AddressResponseDto.class);
+        return Mapper.map(address, AddressResponseDto.class)
+                .add(linkTo(methodOn(AccountAddressController.class).getById(address.getId())).withSelfRel())
+                .add(linkTo(methodOn(AccountController.class).getById(id)).withRel("Account"));
     }
 
 }

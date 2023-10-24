@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
         description = "Schema to hold Event response information"
 )
 @JsonPropertyOrder(value = {"id", "name", "description"})
-public class EventResponseDto extends RepresentationModel<EventResponseDto>  {
+public class EventResponseDto extends RepresentationModel< EventResponseDto>{
     private Long id;
     private String name;
     private Boolean isActive;
@@ -27,4 +27,8 @@ public class EventResponseDto extends RepresentationModel<EventResponseDto>  {
     private String dateStart;
     private String description;
     private String videoUrl;
+    private LocalDateTime createdAt;
+    private String createdBy;
+    private LocalDateTime updatedAt;
+    private String updatedBy;
 }

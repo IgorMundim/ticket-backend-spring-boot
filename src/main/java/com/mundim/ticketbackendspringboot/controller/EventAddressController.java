@@ -104,7 +104,7 @@ public class EventAddressController {
     }
     )
     @GetMapping("/{id}/address/")
-    public ResponseEntity<AddressResponseDto> findByIdEvent(@PathVariable Long id){
+    public ResponseEntity<AddressResponseDto> getByEventId(@PathVariable Long id){
         AddressResponseDto responseDto = iEventAddressService.fetchByEventId(id);
         return ResponseEntity.status(200).body(responseDto);
     }

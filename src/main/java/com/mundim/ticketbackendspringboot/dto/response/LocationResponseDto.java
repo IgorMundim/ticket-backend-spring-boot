@@ -2,6 +2,7 @@ package com.mundim.ticketbackendspringboot.dto.response;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
+import org.springframework.hateoas.RepresentationModel;
 
 @Getter
 @Setter
@@ -12,7 +13,7 @@ import lombok.*;
         name = "LocationResponse",
         description = "Schema to hold Location response information"
 )
-public class LocationResponseDto extends BaseDto{
+public class LocationResponseDto extends RepresentationModel<LocationResponseDto> {
     private Long id;
     private String name;
     private String description;
