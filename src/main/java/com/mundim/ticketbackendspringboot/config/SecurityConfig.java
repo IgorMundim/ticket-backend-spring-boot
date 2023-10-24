@@ -53,7 +53,8 @@ public class SecurityConfig {
                         jwtAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class
                 ).exceptionHandling(ex -> ex
                         .authenticationEntryPoint(new JwtAuthenticationEntryPoint())
-                ).build();
+                )
+                .build();
     }
     @Bean
     public JwtAuthorizationFilter jwtAuthorizationFilter() {

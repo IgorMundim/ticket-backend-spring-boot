@@ -45,14 +45,14 @@ public class PermissionService implements IPermissionService {
 
     @Override
     public PermissionResponseDto update(PermissionRequestDto permissionDto, Integer id) {
-        permissionRepository.findById(id).orElseThrow(
+        Permission oldPermission = permissionRepository.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException("Permission", "id", Integer.toString(id))
         );
         Permission permission = Mapper.map(permissionDto, Permission.class);
-        permission.setId(id);
-        permissionRepository.save(permission);
-        return Mapper.map(permission, PermissionResponseDto.class)
-                .add(linkTo(methodOn(PermissionController.class).getById(permission.getId())).withSelfRel());
+        oldPermission.setRoleName(permission.getRoleName());
+        permissionRepository.save(oldPermission);
+        return Mapper.map(oldPermission, PermissionResponseDto.class)
+                .add(linkTo(methodOn(PermissionController.class).getById(id)).withSelfRel());
     }
 
     @Override

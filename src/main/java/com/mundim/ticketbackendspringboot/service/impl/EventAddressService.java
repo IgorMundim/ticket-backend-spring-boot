@@ -2,7 +2,6 @@ package com.mundim.ticketbackendspringboot.service.impl;
 
 import com.mundim.ticketbackendspringboot.controller.EventAddressController;
 import com.mundim.ticketbackendspringboot.controller.EventController;
-import com.mundim.ticketbackendspringboot.controller.LocationController;
 import com.mundim.ticketbackendspringboot.dto.request.AddressRequestDto;
 import com.mundim.ticketbackendspringboot.dto.response.AddressResponseDto;
 import com.mundim.ticketbackendspringboot.entity.Event;
@@ -58,15 +57,22 @@ public class EventAddressService implements IEventAddressService {
     }
     @Override
     public AddressResponseDto update(AddressRequestDto addressDto, Long id) {
-        eventAddressRepository.findById(id).orElseThrow(
+        EventAddress oldAddress = eventAddressRepository.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException("Address", "id", Long.toString(id))
         );
         EventAddress address = Mapper.map(addressDto, EventAddress.class);
-        address.setId(id);
-        eventAddressRepository.save(address);
-        return Mapper.map(address, AddressResponseDto.class)
-                .add(linkTo(methodOn(EventAddressController.class).getByEventId(address.getId())).withSelfRel())
-                .add(linkTo(methodOn(EventController.class).getById(address.getEvent().getId())).withRel("Event"));
+        oldAddress.setMobileNumber(address.getMobileNumber());
+        oldAddress.setZipcode(address.getZipcode());
+        oldAddress.setComplement(address.getComplement());
+        oldAddress.setCity(address.getCity());
+        oldAddress.setNeighborhood(address.getNeighborhood());
+        oldAddress.setNumber(address.getNumber());
+        oldAddress.setStreet(address.getStreet());
+        oldAddress.setUf(address.getUf());
+        eventAddressRepository.save(oldAddress);
+        return Mapper.map(oldAddress, AddressResponseDto.class)
+                .add(linkTo(methodOn(EventAddressController.class).getByEventId(oldAddress.getId())).withSelfRel())
+                .add(linkTo(methodOn(EventController.class).getById(oldAddress.getEvent().getId())).withRel("Event"));
     }
 
 }

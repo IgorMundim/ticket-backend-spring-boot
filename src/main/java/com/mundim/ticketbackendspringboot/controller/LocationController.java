@@ -172,7 +172,7 @@ public class LocationController {
     }
     )
     @GetMapping("/{id}/location")
-    public ResponseEntity<List<LocationResponseDto>> findAllByIdEvent(@PathVariable Long id){
+    public ResponseEntity<List<LocationResponseDto>> getAllByIdEvent(@PathVariable Long id){
         List<LocationResponseDto> responseDto = iLocationService.fetchAll(id);
         return ResponseEntity.status(200).body(responseDto);
     }

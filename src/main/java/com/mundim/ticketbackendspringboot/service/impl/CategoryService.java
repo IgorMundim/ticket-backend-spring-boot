@@ -64,13 +64,17 @@ public class CategoryService implements ICategoryService {
     }
     @Override
     public CategoryResponseDto update(CategoryRequestDto categoryDto, Long id) {
-        categoryRepository.findById(id).orElseThrow(
+        Category oldCategory = categoryRepository.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException("Category", "id", Long.toString(id))
         );
         Category category = Mapper.map(categoryDto, Category.class);
-        category.setId(id);
-        categoryRepository.save(category);
-        return Mapper.map(category, CategoryResponseDto.class)
+        oldCategory.setName(category.getName());
+        oldCategory.setIsActive(category.getIsActive());
+        oldCategory.setUrl(category.getUrl());
+        oldCategory.setAltText(category.getAltText());
+        oldCategory.setId(id);
+        categoryRepository.save(oldCategory);
+        return Mapper.map(oldCategory, CategoryResponseDto.class)
                 .add(linkTo(methodOn(CategoryController.class).getById(id)).withSelfRel());
     }
 

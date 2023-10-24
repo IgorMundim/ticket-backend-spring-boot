@@ -3,7 +3,6 @@ package com.mundim.ticketbackendspringboot.service.impl;
 
 import com.mundim.ticketbackendspringboot.controller.BatchController;
 import com.mundim.ticketbackendspringboot.controller.EventController;
-import com.mundim.ticketbackendspringboot.controller.LocationController;
 import com.mundim.ticketbackendspringboot.dto.request.BatchRequestDto;
 import com.mundim.ticketbackendspringboot.dto.response.BatchResponseDto;
 import com.mundim.ticketbackendspringboot.entity.Batch;
@@ -55,15 +54,19 @@ public class BatchService implements IBatchService {
 
     @Override
     public BatchResponseDto update(BatchRequestDto batchDto, Long id) {
-        batchRepository.findById(id).orElseThrow(
+        Batch oldBatch = batchRepository.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException("Batch", "id", Long.toString(id))
         );
         Batch batch = Mapper.map(batchDto, Batch.class);
-        batch.setId(id);
-        batchRepository.save(batch);
-        return Mapper.map(batch, BatchResponseDto.class)
-                .add(linkTo(methodOn(BatchController.class).getById(batch.getId())).withSelfRel())
-                .add(linkTo(methodOn(EventController.class).getById(batch.getEvent().getId())).withRel("Event"));
+        oldBatch.setPercentage(batch.getPercentage());
+        oldBatch.setBatchStopDate(batch.getBatchStopDate());
+        oldBatch.setSalesQtd(batch.getSalesQtd());
+        oldBatch.setDescription(batch.getDescription());
+        oldBatch.setIsActive(batch.getIsActive());
+        batchRepository.save(oldBatch);
+        return Mapper.map(oldBatch, BatchResponseDto.class)
+                .add(linkTo(methodOn(BatchController.class).getById(oldBatch.getId())).withSelfRel())
+                .add(linkTo(methodOn(EventController.class).getById(oldBatch.getEvent().getId())).withRel("Event"));
     }
 
     @Override

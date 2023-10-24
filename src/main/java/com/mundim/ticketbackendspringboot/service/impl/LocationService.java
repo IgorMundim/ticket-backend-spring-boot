@@ -54,15 +54,22 @@ public class LocationService implements ILocationService {
 
     @Override
     public LocationResponseDto update(LocationRequestDto locationDto, Long id) {
-        locationRepository.findById(id).orElseThrow(
+        Location oldLocation = locationRepository.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException("Location", "id", Long.toString(id))
         );
         Location location = Mapper.map(locationDto, Location.class);
-        location.setId(id);
-        locationRepository.save(location);
-        return Mapper.map(location, LocationResponseDto.class)
-                .add(linkTo(methodOn(LocationController.class).getById(location.getId())).withSelfRel())
-                .add(linkTo(methodOn(EventController.class).getById(location.getEvent().getId())).withRel("Event"));
+        oldLocation.setName(location.getName());
+        oldLocation.setDescription(location.getDescription());
+        oldLocation.setIsActive(location.getIsActive());
+        oldLocation.setStorePrice(location.getStorePrice());
+        oldLocation.setSalePrice(location.getSalePrice());
+        oldLocation.setStudentPrice(location.getStudentPrice());
+        oldLocation.setUnitsSolid(location.getUnitsSolid());
+        oldLocation.setUnits(location.getUnits());
+        locationRepository.save(oldLocation);
+        return Mapper.map(oldLocation, LocationResponseDto.class)
+                .add(linkTo(methodOn(LocationController.class).getById(id)).withSelfRel())
+                .add(linkTo(methodOn(EventController.class).getById(oldLocation.getEvent().getId())).withRel("Event"));
     }
 
     @Override

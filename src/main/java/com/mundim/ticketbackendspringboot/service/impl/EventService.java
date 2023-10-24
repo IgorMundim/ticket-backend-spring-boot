@@ -33,7 +33,7 @@ public class EventService implements IEventService {
         eventRepository.save(event);
         return Mapper.map(event, EventResponseDto.class)
                 .add(linkTo(methodOn(EventController.class).getById(event.getId())).withSelfRel())
-                .add(linkTo(methodOn(LocationController.class).findAllByIdEvent(event.getId())).withRel("Locations"))
+                .add(linkTo(methodOn(LocationController.class).getAllByIdEvent(event.getId())).withRel("Locations"))
                 .add(linkTo(methodOn(BatchController.class).getAllByIdEvent(event.getId())).withRel("Batch"))
                 .add(linkTo(methodOn(CategoryController.class).getAllByEventId(event.getId())).withRel("Category"))
                 .add(linkTo(methodOn(EventAddressController.class).getByEventId(event.getId())).withRel("Address"));
@@ -46,7 +46,7 @@ public class EventService implements IEventService {
         );
         return Mapper.map(event, EventResponseDto.class)
                 .add(linkTo(methodOn(EventController.class).getById(id)).withSelfRel())
-                .add(linkTo(methodOn(LocationController.class).findAllByIdEvent(id)).withRel("Locations"))
+                .add(linkTo(methodOn(LocationController.class).getAllByIdEvent(id)).withRel("Locations"))
                 .add(linkTo(methodOn(BatchController.class).getAllByIdEvent(id)).withRel("Batch"))
                 .add(linkTo(methodOn(CategoryController.class).getAllByEventId(id)).withRel("Category"))
                 .add(linkTo(methodOn(EventAddressController.class).getByEventId(id)).withRel("Address"));
@@ -57,13 +57,13 @@ public class EventService implements IEventService {
         var eventPage = eventRepository.findAll(pageable);
         var eventPageDto = eventPage.map(p -> Mapper.map(p, EventResponseDto.class)
                 .add(linkTo(methodOn(EventController.class).getById(p.getId())).withSelfRel())
-                .add(linkTo(methodOn(LocationController.class).findAllByIdEvent(p.getId())).withRel("Locations"))
+                .add(linkTo(methodOn(LocationController.class).getAllByIdEvent(p.getId())).withRel("Locations"))
                 .add(linkTo(methodOn(BatchController.class).getAllByIdEvent(p.getId())).withRel("Batch"))
                 .add(linkTo(methodOn(CategoryController.class).getAllByEventId(p.getId())).withRel("Category"))
                 .add(linkTo(methodOn(EventAddressController.class).getByEventId(p.getId())).withRel("Address"))
         );
         Link link = linkTo(methodOn(EventController.class)
-                .findAll(pageable.getPageNumber(), pageable.getPageSize(), "asc")).withSelfRel();
+                .getAll(pageable.getPageNumber(), pageable.getPageSize(), "asc")).withSelfRel();
         return assembler.toModel(eventPageDto, link);
     }
 
@@ -83,7 +83,7 @@ public class EventService implements IEventService {
         event.setVideoUrl(newEvent.getVideoUrl());
         eventRepository.save(event);
         return Mapper.map(event, EventResponseDto.class).add(linkTo(methodOn(EventController.class).getById(id)).withSelfRel())
-                .add(linkTo(methodOn(LocationController.class).findAllByIdEvent(id)).withRel("Locations"))
+                .add(linkTo(methodOn(LocationController.class).getAllByIdEvent(id)).withRel("Locations"))
                 .add(linkTo(methodOn(BatchController.class).getAllByIdEvent(id)).withRel("Batch"))
                 .add(linkTo(methodOn(CategoryController.class).getAllByEventId(id)).withRel("Category"))
                 .add(linkTo(methodOn(EventAddressController.class).getByEventId(id)).withRel("Address"));

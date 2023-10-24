@@ -55,14 +55,21 @@ public class AccountAddressService implements IAccountAddressService {
 
     @Override
     public AddressResponseDto update(AddressRequestDto addressDto, Long id) {
-        addressRepository.findById(id).orElseThrow(
+        Address oldAddress = addressRepository.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException("Address", "id", Long.toString(id))
         );
         Address address = Mapper.map(addressDto, Address.class);
-        address.setId(id);
-        addressRepository.save(address);
-        return Mapper.map(address, AddressResponseDto.class)
-                .add(linkTo(methodOn(AccountAddressController.class).getById(address.getId())).withSelfRel())
+        oldAddress.setMobileNumber(address.getMobileNumber());
+        oldAddress.setZipcode(address.getZipcode());
+        oldAddress.setComplement(address.getComplement());
+        oldAddress.setCity(address.getCity());
+        oldAddress.setNeighborhood(address.getNeighborhood());
+        oldAddress.setNumber(address.getNumber());
+        oldAddress.setStreet(address.getStreet());
+        oldAddress.setUf(address.getUf());
+        addressRepository.save(oldAddress);
+        return Mapper.map(oldAddress, AddressResponseDto.class)
+                .add(linkTo(methodOn(AccountAddressController.class).getById(oldAddress.getId())).withSelfRel())
                 .add(linkTo(methodOn(AccountController.class).getById(id)).withRel("Account"));
     }
 

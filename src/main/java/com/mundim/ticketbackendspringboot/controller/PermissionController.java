@@ -186,7 +186,7 @@ public class PermissionController {
     )
     @SecurityRequirement(name = "basicAuth")
     @GetMapping("/")
-    public ResponseEntity<List<PermissionResponseDto>> findAll(){
+    public ResponseEntity<List<PermissionResponseDto>> getAll(){
         List<PermissionResponseDto> responseDto = iPermissionService.fetchAll();
         return ResponseEntity.status(200).body(responseDto);
     }
