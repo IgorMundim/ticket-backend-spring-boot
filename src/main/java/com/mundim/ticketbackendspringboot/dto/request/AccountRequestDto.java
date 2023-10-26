@@ -17,7 +17,7 @@ import lombok.*;
         description = "Schema to hold Account information"
 )
 public class AccountRequestDto {
-    private Long id;
+//    private Long id;
     @NotBlank(message = "Email must not be blank")
     @Email(message = "Please provide a valid email address")
     private String email;

@@ -1,6 +1,7 @@
 package com.mundim.ticketbackendspringboot.mocks;
 
 import com.mundim.ticketbackendspringboot.dto.request.AccountRequestDto;
+import com.mundim.ticketbackendspringboot.dto.request.PasswordRequestDto;
 import com.mundim.ticketbackendspringboot.entity.Account;
 
 import java.util.ArrayList;
@@ -44,6 +45,12 @@ public class MockAccount {
         account.setEmail("EmailTest"+number);
         account.setPwd("PasswordTest"+number);
         account.setProfileImage("ImageTest"+number);
+        return account;
+    }
+    public PasswordRequestDto mockPwdDto(Integer number){
+        PasswordRequestDto account = new PasswordRequestDto();
+        account.setNewPwd("PasswordTest");
+        account.setOldPwd("PasswordTest"+number);
         return account;
     }
 }
