@@ -17,7 +17,7 @@ public class AccountResponseDto extends RepresentationModel<AccountResponseDto> 
     private String username;
     private String email;
     private String profileImage;
-    private PermissionResponseDto permission;
-    private AddressResponseDto address;
+//    private PermissionResponseDto permission;
+//    private AddressResponseDto address;
 
 }
