@@ -50,7 +50,7 @@ public class AccountAddressService implements IAccountAddressService {
         );
         return Mapper.map(address, AddressResponseDto.class)
                 .add(linkTo(methodOn(AccountAddressController.class).getById(address.getId())).withSelfRel())
-                .add(linkTo(methodOn(AccountController.class).getById(id)).withRel("Account"));
+                .add(linkTo(methodOn(AccountController.class).getById(address.getAccount().getId())).withRel("Account"));
     }
 
     @Override
@@ -70,7 +70,7 @@ public class AccountAddressService implements IAccountAddressService {
         addressRepository.save(oldAddress);
         return Mapper.map(oldAddress, AddressResponseDto.class)
                 .add(linkTo(methodOn(AccountAddressController.class).getById(oldAddress.getId())).withSelfRel())
-                .add(linkTo(methodOn(AccountController.class).getById(id)).withRel("Account"));
+                .add(linkTo(methodOn(AccountController.class).getById(oldAddress.getAccount().getId())).withRel("Account"));
     }
 
 }

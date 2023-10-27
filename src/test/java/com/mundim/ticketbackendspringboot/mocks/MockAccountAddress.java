@@ -31,14 +31,17 @@ public class MockAccountAddress {
     }
     public Address mockEntity(Integer number){
         Address entity = new Address();
+        MockAccount inputAccount = new MockAccount();
         entity.setId(number.longValue());
         entity.setMobileNumber("MobileNumberTest"+number);
         entity.setZipcode("12345678");
         entity.setComplement("ComplementTest"+number);
         entity.setNeighborhood("NeighborhoodTest"+number);
+        entity.setNumber("NumberTest"+number);
         entity.setCity("CityTest"+number);
         entity.setStreet("StreetTest"+number);
         entity.setUf("MG");
+        entity.setAccount(inputAccount.mockEntity(1));
         return entity;
     }
 
@@ -48,9 +51,11 @@ public class MockAccountAddress {
         entity.setZipcode("12345678");
         entity.setComplement("ComplementTest"+number);
         entity.setNeighborhood("NeighborhoodTest"+number);
+        entity.setNumber("NumberTest"+number);
         entity.setCity("CityTest"+number);
         entity.setStreet("StreetTest"+number);
         entity.setUf("MG");
+
         return entity;
     }
 }

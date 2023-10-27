@@ -98,7 +98,7 @@ class PermissionServiceTest {
         assertEquals("ROLE_1", result.getRoleName());
     }
     @Test
-    @DisplayName("It should not accept duplicate roleName")
+    @DisplayName("It should update 'Permission'")
     void testWillUpdatePermission(){
         Permission oldEntity = input.mockEntity(1);
 

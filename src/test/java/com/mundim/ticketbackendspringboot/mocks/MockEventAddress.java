@@ -36,6 +36,7 @@ public class MockEventAddress {
         entity.setZipcode("12345678");
         entity.setComplement("ComplementTest"+number);
         entity.setNeighborhood("NeighborhoodTest"+number);
+        entity.setNumber("NumberTest"+number);
         entity.setCity("CityTest"+number);
         entity.setStreet("StreetTest"+number);
         entity.setUf("MG");
@@ -48,6 +49,7 @@ public class MockEventAddress {
         entity.setZipcode("12345678");
         entity.setComplement("ComplementTest"+number);
         entity.setNeighborhood("NeighborhoodTest"+number);
+        entity.setNumber("NumberTest"+number);
         entity.setCity("CityTest"+number);
         entity.setStreet("StreetTest"+number);
         entity.setUf("MG");
