@@ -42,28 +42,6 @@ class AccountServiceTest {
     }
 
     @Test
-    @DisplayName("It should an Account customer")
-    void testWillCreateAccount(){
-        String roleName = "ROLE_CUSTOMER";
-        Account entity = accountInput.mockEntity(1);
-        Permission entityPermission = permissionInput.mockEntity(1, roleName);
-        AccountRequestDto entityDto = accountInput.mockDto(1);
-        when(passwordEncoder.encode(entity.getPwd())).thenReturn("encodePwd");
-        when(permissionRepository.findByRoleName(roleName)).thenReturn(Optional.of(entityPermission));
-        when(accountRepository.save(entity))
-                .thenReturn(entity);
-
-        AccountResponseDto result = service.create(entityDto);
-        assertNotNull(result);
-        assertNull(result.getId());
-        assertEquals(AccountResponseDto.class, result.getClass());
-        assertTrue(result.getLinks().toString().contains("</api/v1/account/{id}>;rel=\"self\",</api/v1/permission/1>;rel=\"self\""));
-        assertEquals("UsernameTest1", result.getUsername());
-        assertEquals("EmailTest1", result.getEmail());
-        assertEquals("ImageTest1", result.getProfileImage());
-
-    }
-    @Test
     @DisplayName("It should not found 'ROLE_CUSTOMER' when is trying to create a new Account.")
     void  testWillThrowPermissionNotFound(){
         String roleName = "ROLE_CUSTOMER";
@@ -104,6 +82,29 @@ class AccountServiceTest {
         Exception exception = assertThrows(ResourceNotFoundException.class, () -> { service.createAdmin(entityDto); });
         String expectedMessage = "Permission not found with the given input data roleName : 'ROLE_ADMIN'";
         assertTrue(exception.getMessage().contains(expectedMessage));
+    }
+
+    @Test
+    @DisplayName("It should an Account customer")
+    void testWillCreateAccount(){
+        String roleName = "ROLE_CUSTOMER";
+        Account entity = accountInput.mockEntity(1);
+        Permission entityPermission = permissionInput.mockEntity(1, roleName);
+        AccountRequestDto entityDto = accountInput.mockDto(1);
+        when(passwordEncoder.encode(entity.getPwd())).thenReturn("encodePwd");
+        when(permissionRepository.findByRoleName(roleName)).thenReturn(Optional.of(entityPermission));
+        when(accountRepository.save(entity))
+                .thenReturn(entity);
+
+        AccountResponseDto result = service.create(entityDto);
+        assertNotNull(result);
+        assertNull(result.getId());
+        assertEquals(AccountResponseDto.class, result.getClass());
+        assertTrue(result.getLinks().toString().contains("</api/v1/account/{id}>;rel=\"self\",</api/v1/permission/1>;rel=\"self\""));
+        assertEquals("UsernameTest1", result.getUsername());
+        assertEquals("EmailTest1", result.getEmail());
+        assertEquals("ImageTest1", result.getProfileImage());
+
     }
     @Test
     @DisplayName("It should an Account admin")
@@ -166,7 +167,6 @@ class AccountServiceTest {
         when(passwordEncoder.matches(pwdEntity.getOldPwd(), entity.getPwd())).thenReturn(true);
         var result = service.updatePassword(entity.getId(), pwdEntity);
         assertNull(result);
-
     }
 
 }
