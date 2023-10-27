@@ -34,9 +34,11 @@ public class MockBatch {
     }
     public Batch mockEntity(Integer number){
         Batch entity = new Batch();
+        MockEvent inputEvent = new MockEvent();
+        entity.setEvent(inputEvent.mockEntity(2));
         entity.setId(number.longValue());
         entity.setPercentage(10.1);
-        entity.setBatchStopDate(LocalDateTime.of(2024, Month.FEBRUARY, 28, 25,1,1));
+        entity.setBatchStopDate(LocalDateTime.of(2024, Month.FEBRUARY, 28, 22,1,1));
         entity.setSalesQtd(10);
         entity.setDescription("DescriptionTest"+number);
         entity.setIsActive(true);
@@ -46,7 +48,7 @@ public class MockBatch {
     public BatchRequestDto mockDto(Integer number){
         BatchRequestDto entity = new BatchRequestDto();
         entity.setPercentage(10.1);
-        entity.setBatchStopDate(LocalDateTime.of(2024, Month.FEBRUARY, 28, 25,1,1));
+        entity.setBatchStopDate(LocalDateTime.of(2024, Month.FEBRUARY, 28, 22,1,1));
         entity.setSalesQtd(10);
         entity.setDescription("DescriptionTest"+number);
         entity.setIsActive(true);
