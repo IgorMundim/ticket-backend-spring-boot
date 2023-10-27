@@ -109,6 +109,36 @@ public class EventAddressController {
         return ResponseEntity.status(200).body(responseDto);
     }
     @Operation(
+            summary = "Fetch Event Address REST API",
+            description = "REST API to fetch Event Address"
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "HTTP Status OK"
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "Resource not found with the given input data",
+                    content = @Content(
+                            schema = @Schema(implementation = ErrorResponseDto.class)
+                    )
+            ),
+            @ApiResponse(
+                    responseCode = "500",
+                    description = "HTTP Status Internal Server Error",
+                    content = @Content(
+                            schema = @Schema(implementation = ErrorResponseDto.class)
+                    )
+            )
+    }
+    )
+    @GetMapping("/address/{id}")
+    public ResponseEntity<AddressResponseDto> getById(@PathVariable Long id){
+        AddressResponseDto responseDto = iEventAddressService.fetch(id);
+        return ResponseEntity.status(200).body(responseDto);
+    }
+    @Operation(
             summary = "UPDATE Event Address REST API",
             description = "REST API to update Event Address"
     )

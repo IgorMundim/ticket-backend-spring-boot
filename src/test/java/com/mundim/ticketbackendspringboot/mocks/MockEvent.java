@@ -38,8 +38,8 @@ public class MockEvent {
         entity.setIsActive(true);
         entity.setIsVirtual(true);
         entity.setIsPublished(true);
-        entity.setDateEnd(LocalDateTime.of(2024, Month.FEBRUARY, 28, 25,1,1));
-        entity.setDateStart(LocalDateTime.of(2024, Month.FEBRUARY, 28, 25,1,1));
+        entity.setDateEnd(LocalDateTime.of(2024, Month.FEBRUARY, 28, 23,1,1));
+        entity.setDateStart(LocalDateTime.of(2024, Month.FEBRUARY, 28, 22,1,1));
         entity.setDescription("DescriptionTest"+1);
         entity.setVideoUrl("VideoUrlTest");
         return entity;

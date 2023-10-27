@@ -2,11 +2,11 @@ package com.mundim.ticketbackendspringboot.service.impl;
 
 import com.mundim.ticketbackendspringboot.dto.request.AddressRequestDto;
 import com.mundim.ticketbackendspringboot.dto.response.AddressResponseDto;
-import com.mundim.ticketbackendspringboot.entity.Address;
+import com.mundim.ticketbackendspringboot.entity.EventAddress;
 import com.mundim.ticketbackendspringboot.exception.ResourceNotFoundException;
-import com.mundim.ticketbackendspringboot.mocks.MockAccountAddress;
-import com.mundim.ticketbackendspringboot.repository.AccountRepository;
-import com.mundim.ticketbackendspringboot.repository.AddressRepository;
+import com.mundim.ticketbackendspringboot.mocks.MockEventAddress;
+import com.mundim.ticketbackendspringboot.repository.EventAddressRepository;
+import com.mundim.ticketbackendspringboot.repository.EventRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -19,46 +19,46 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
-class AccountAddressServiceTest {
-    MockAccountAddress inputAddress;
+class EventAddressServiceTest {
+    MockEventAddress inputAddress;
 
     @InjectMocks
-    AccountAddressService service;
+    EventAddressService service;
     @Mock
-    AccountRepository accountRepository;
+    EventRepository eventRepository;
     @Mock
-    AddressRepository addressRepository;
+    EventAddressRepository addressRepository;
 
     @BeforeEach
     void setUpMocks() throws Exception{
-        inputAddress = new MockAccountAddress();
+        inputAddress = new MockEventAddress();
         MockitoAnnotations.openMocks(this);
     }
 
     @Test
-    @DisplayName("It should not accept the creation of an 'Account Address' with an invalid account id.")
+    @DisplayName("It should not accept the creation of an 'Event Address' with an invalid event id.")
     void testWillThrowResourceNotFoundExceptionWhenTryGetAccountToCreateAddress(){
-        AddressRequestDto entityDto = inputAddress.mockDto();
-        when(accountRepository.findById(1L)).thenReturn(
+        AddressRequestDto entityDto = inputAddress.mockDto(1);
+        when(eventRepository.findById(1L)).thenReturn(
                 Optional.empty()
         );
         Exception exception = assertThrows(ResourceNotFoundException.class, () -> { service.create(entityDto, 1L); });
-        String expectedMessage = "Account not found with the given input data id : '1'";
+        String expectedMessage = "Event not found with the given input data id : '1'";
         assertTrue(exception.getMessage().contains(expectedMessage));
     }
     @Test
-    @DisplayName("It should not found an 'Account Address' with invalid id.")
+    @DisplayName("It should not found an 'Event Address' with invalid id.")
     void testWillThrowResourceNotFoundExceptionWhenTryGetAddressById(){
-        Address entity = inputAddress.mockEntity(1);
+        EventAddress entity = inputAddress.mockEntity(1);
         when(addressRepository.findById(entity.getId())).thenReturn(Optional.empty());
         Exception exception = assertThrows(ResourceNotFoundException.class, () -> { service.fetch(entity.getId()); });
         String expectedMessage = "Address not found with the given input data id : '1'";
         assertTrue(exception.getMessage().contains(expectedMessage));
     }
     @Test
-    @DisplayName("It should not found an 'Account Address' with invalid id.")
+    @DisplayName("It should not found an 'Event Address' with invalid id.")
     void testWillThrowResourceNotFoundExceptionWhenTryUpdateAddressById(){
-        Address entity = inputAddress.mockEntity(1);
+        EventAddress entity = inputAddress.mockEntity(1);
         AddressRequestDto entityDto = inputAddress.mockDto(1);
         when(addressRepository.findById(entity.getId())).thenReturn(Optional.empty());
         Exception exception = assertThrows(ResourceNotFoundException.class, () -> { service.update( entityDto,entity.getId()); });
@@ -67,16 +67,16 @@ class AccountAddressServiceTest {
     }
 
     @Test
-    @DisplayName("It should create an 'Account Address'")
+    @DisplayName("It should create an 'Event Address'")
     void testWillCreateAddress(){
-        Address entity = inputAddress.mockEntity(1);
+        EventAddress entity = inputAddress.mockEntity(1);
 
         AddressRequestDto entityDto = inputAddress.mockDto(1);
-        when(accountRepository.findById(1L)).thenReturn(Optional.of(entity.getAccount()));
+        when(eventRepository.findById(1L)).thenReturn(Optional.of(entity.getEvent()));
         AddressResponseDto result = service.create(entityDto, entity.getId());
         assertNotNull(result);
         assertEquals(AddressResponseDto.class, result.getClass());
-        assertTrue(result.getLinks().toString().contains("</api/v1/account/address/{id}>;rel=\"self\",</api/v1/account/1>;rel=\"Account\""));
+        assertTrue(result.getLinks().toString().contains("</api/v1/event/address/{id}>;rel=\"self\",</api/v1/event/1>;rel=\"Event\""));
         assertEquals("MobileNumberTest1", result.getMobileNumber());
         assertEquals("12345678", result.getZipcode());
         assertEquals("ComplementTest1", result.getComplement());
@@ -87,15 +87,15 @@ class AccountAddressServiceTest {
         assertEquals("MG", result.getUf());
     }
     @Test
-    @DisplayName("It should get an 'Account Address' by id")
+    @DisplayName("It should get an 'Event Address' by id")
     void testWillGetAddressById(){
-        Address entity = inputAddress.mockEntity(1);
+        EventAddress entity = inputAddress.mockEntity(1);
 
         when(addressRepository.findById(1L)).thenReturn(Optional.of(entity));
         AddressResponseDto result = service.fetch(entity.getId());
         assertNotNull(result);
         assertEquals(AddressResponseDto.class, result.getClass());
-        assertTrue(result.getLinks().toString().contains("</api/v1/account/address/1>;rel=\"self\",</api/v1/account/1>;rel=\"Account\""));
+        assertTrue(result.getLinks().toString().contains("</api/v1/event/address/1>;rel=\"self\",</api/v1/event/2>;rel=\"Event\""));
         assertEquals("MobileNumberTest1", result.getMobileNumber());
         assertEquals("12345678", result.getZipcode());
         assertEquals("ComplementTest1", result.getComplement());
@@ -107,16 +107,16 @@ class AccountAddressServiceTest {
     }
 
     @Test
-    @DisplayName("It should update an 'Account Address' by id")
+    @DisplayName("It should update an 'Event Address' by id")
     void testWillUpdateAddressById(){
-        Address entity = inputAddress.mockEntity(1);
+        EventAddress entity = inputAddress.mockEntity(1);
 
         AddressRequestDto entityDto = inputAddress.mockDto(2);
         when(addressRepository.findById(1L)).thenReturn(Optional.of(entity));
         AddressResponseDto result = service.update(entityDto, entity.getId());
         assertNotNull(result);
         assertEquals(AddressResponseDto.class, result.getClass());
-        assertTrue(result.getLinks().toString().contains("</api/v1/account/address/1>;rel=\"self\",</api/v1/account/1>;rel=\"Account\""));
+        assertTrue(result.getLinks().toString().contains("</api/v1/event/1/address/>;rel=\"self\",</api/v1/event/2>;rel=\"Event\""));
         assertEquals("MobileNumberTest2", result.getMobileNumber());
         assertEquals("12345678", result.getZipcode());
         assertEquals("ComplementTest2", result.getComplement());

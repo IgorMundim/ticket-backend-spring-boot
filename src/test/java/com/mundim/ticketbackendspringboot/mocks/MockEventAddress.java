@@ -31,6 +31,8 @@ public class MockEventAddress {
     }
     public EventAddress mockEntity(Integer number){
         EventAddress entity = new EventAddress();
+        MockEvent inputEvent = new MockEvent();
+        entity.setEvent(inputEvent.mockEntity(2));
         entity.setId(number.longValue());
         entity.setMobileNumber("MobileNumberTest"+number);
         entity.setZipcode("12345678");

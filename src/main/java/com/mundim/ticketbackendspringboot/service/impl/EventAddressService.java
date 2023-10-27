@@ -1,5 +1,7 @@
 package com.mundim.ticketbackendspringboot.service.impl;
 
+import com.mundim.ticketbackendspringboot.controller.AccountAddressController;
+import com.mundim.ticketbackendspringboot.controller.AccountController;
 import com.mundim.ticketbackendspringboot.controller.EventAddressController;
 import com.mundim.ticketbackendspringboot.controller.EventController;
 import com.mundim.ticketbackendspringboot.dto.request.AddressRequestDto;
@@ -38,7 +40,10 @@ public class EventAddressService implements IEventAddressService {
         } catch (Exception ex){
             throw new AlreadyExistsException("Address already registered");
         }
-        return Mapper.map(address, AddressResponseDto.class);
+        return Mapper.map(address, AddressResponseDto.class)
+                .add(linkTo(methodOn(EventAddressController.class).getById(address.getId())).withSelfRel())
+                .add(linkTo(methodOn(EventController.class).getById(id)).withRel("Event"));
+
     }
 
     @Override
@@ -46,14 +51,18 @@ public class EventAddressService implements IEventAddressService {
         EventAddress address = eventAddressRepository.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException("Address", "id", Long.toString(id))
         );
-        return Mapper.map(address, AddressResponseDto.class);
+        return Mapper.map(address, AddressResponseDto.class)
+                .add(linkTo(methodOn(EventAddressController.class).getById(id)).withSelfRel())
+                .add(linkTo(methodOn(EventController.class).getById(address.getEvent().getId())).withRel("Event"));
     }
     @Override
     public AddressResponseDto fetchByEventId(Long id) {
         EventAddress address = eventAddressRepository.findByEventId(id).orElseThrow(
                 () -> new ResourceNotFoundException("Address", "id", Long.toString(id))
         );
-        return Mapper.map(address, AddressResponseDto.class);
+        return Mapper.map(address, AddressResponseDto.class)
+                .add(linkTo(methodOn(EventAddressController.class).getById(address.getId())).withSelfRel())
+                .add(linkTo(methodOn(EventController.class).getById(id)).withRel("Event"));
     }
     @Override
     public AddressResponseDto update(AddressRequestDto addressDto, Long id) {
