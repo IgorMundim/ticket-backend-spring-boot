@@ -32,6 +32,8 @@ public class MockLocation {
     }
     public Location mockEntity(Integer number){
         Location entity = new Location();
+        MockEvent inputEvent = new MockEvent();
+        entity.setEvent(inputEvent.mockEntity(2));
         entity.setId(number.longValue());
         entity.setName("NameTest"+number);
         entity.setDescription("DescriptionTest"+number);
