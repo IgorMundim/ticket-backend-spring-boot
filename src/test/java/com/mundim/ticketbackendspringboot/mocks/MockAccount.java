@@ -11,9 +11,6 @@ public class MockAccount {
     public Account mockEntity(){
         return mockEntity(0);
     }
-    public AccountRequestDto mockAccountDto(){
-        return mockDto(0);
-    }
 
     public List<Account> mockEntityList(){
         List<Account> accounts = new ArrayList<Account>();
@@ -23,13 +20,7 @@ public class MockAccount {
         return accounts;
     }
 
-    public List<AccountRequestDto> mockDtoList(){
-        List<AccountRequestDto> accounts = new ArrayList<AccountRequestDto>();
-        for(int i =0; i<14; i++){
-            accounts.add(mockDto(i));
-        }
-        return accounts;
-    }
+
     public Account mockEntity(Integer number){
         Account account = new Account();
         account.setId(number.longValue());
