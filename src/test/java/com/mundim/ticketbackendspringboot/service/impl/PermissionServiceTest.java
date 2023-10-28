@@ -70,7 +70,7 @@ class PermissionServiceTest {
     }
 
     @Test
-    @DisplayName("It should not accept duplicate roleName")
+    @DisplayName("It should create a Permission")
     void testWillCreatePermission(){
         Permission entity = input.mockEntity(1);
         PermissionRequestDto entityDto = input.mockDto(1);
@@ -85,7 +85,7 @@ class PermissionServiceTest {
     }
 
     @Test
-    @DisplayName("It should get an 'Permission' by account id")
+    @DisplayName("It should get a 'Permission' by account id")
     void testFetchPermissionById(){
         Permission entity = input.mockEntity(1);
         when(permissionRepository.findById(entity.getId()))
