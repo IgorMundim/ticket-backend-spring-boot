@@ -67,7 +67,7 @@ class CategoryServiceTest {
 
     @Test
     @DisplayName("It should create a Category")
-    void testWillCreatePermission(){
+    void testWillCreateEvent(){
         Category entity = input.mockEntity(1);
         CategoryRequestDto entityDto = input.mockDto(1);
 

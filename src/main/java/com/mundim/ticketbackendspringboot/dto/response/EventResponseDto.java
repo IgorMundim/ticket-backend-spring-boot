@@ -24,7 +24,7 @@ public class EventResponseDto extends RepresentationModel< EventResponseDto>{
     private Boolean isVirtual;
     private Boolean isPublished;
     private LocalDateTime dateEnd;
-    private String dateStart;
+    private LocalDateTime dateStart;
     private String description;
     private String videoUrl;
     private LocalDateTime createdAt;

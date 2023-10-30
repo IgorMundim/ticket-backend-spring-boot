@@ -1,7 +1,10 @@
 package com.mundim.ticketbackendspringboot.mocks;
 
 import com.mundim.ticketbackendspringboot.dto.request.EventRequestDto;
+import com.mundim.ticketbackendspringboot.dto.response.EventResponseDto;
 import com.mundim.ticketbackendspringboot.entity.Event;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.PagedModel;
 
 import java.time.LocalDateTime;
 import java.time.Month;
@@ -40,8 +43,8 @@ public class MockEvent {
         entity.setIsPublished(true);
         entity.setDateEnd(LocalDateTime.of(2024, Month.FEBRUARY, 28, 23,1,1));
         entity.setDateStart(LocalDateTime.of(2024, Month.FEBRUARY, 28, 22,1,1));
-        entity.setDescription("DescriptionTest"+1);
-        entity.setVideoUrl("VideoUrlTest");
+        entity.setDescription("DescriptionTest"+number);
+        entity.setVideoUrl("VideoUrlTest"+number);
         return entity;
     }
 
@@ -51,10 +54,10 @@ public class MockEvent {
         entity.setIsActive(true);
         entity.setIsVirtual(true);
         entity.setIsPublished(true);
-        entity.setDateEnd(LocalDateTime.of(2024, Month.FEBRUARY, 28, 25,1,1));
-        entity.setDateStart(LocalDateTime.of(2024, Month.FEBRUARY, 28, 25,1,1));
-        entity.setDescription("DescriptionTest"+1);
-        entity.setVideoUrl("VideoUrlTest");
+        entity.setDateEnd(LocalDateTime.of(2024, Month.FEBRUARY, 28, 23,1,1));
+        entity.setDateStart(LocalDateTime.of(2024, Month.FEBRUARY, 28, 22,1,1));
+        entity.setDescription("DescriptionTest"+number);
+        entity.setVideoUrl("VideoUrlTest"+number);
         return entity;
     }
 }

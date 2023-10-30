@@ -1,0 +1,1 @@
+ insert into account (id, username, email, pwd, profile_image, permission_id) values (1, 'customer', 'customer@customer.com', 'customer', 'profileImage',1);
