@@ -51,11 +51,6 @@ public class PermissionController {
                     content = @Content
             ),
             @ApiResponse(
-                    responseCode = "403",
-                    description = "Forbidden",
-                    content = @Content
-            ),
-            @ApiResponse(
                     responseCode = "500",
                     description = "HTTP Status Internal Server Error",
                     content = @Content(
@@ -130,11 +125,6 @@ public class PermissionController {
                     content = @Content
             ),
             @ApiResponse(
-                    responseCode = "403",
-                    description = "Forbidden",
-                    content = @Content
-            ),
-            @ApiResponse(
                     responseCode = "500",
                     description = "HTTP Status Internal Server Error",
                     content = @Content(
@@ -162,18 +152,6 @@ public class PermissionController {
             responseCode = "401",
             description = "Unauthorized",
             content = @Content
-            ),
-            @ApiResponse(
-                    responseCode = "403",
-                    description = "Forbidden",
-                    content = @Content
-            ),
-            @ApiResponse(
-                    responseCode = "404",
-                    description = "Resource not found with the given input data",
-                    content = @Content(
-                            schema = @Schema(implementation = ErrorResponseDto.class)
-                    )
             ),
             @ApiResponse(
                     responseCode = "500",

@@ -67,15 +67,19 @@ public class CategoryService implements ICategoryService {
         Category oldCategory = categoryRepository.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException("Category", "id", Long.toString(id))
         );
-        Category category = Mapper.map(categoryDto, Category.class);
-        oldCategory.setName(category.getName());
-        oldCategory.setIsActive(category.getIsActive());
-        oldCategory.setUrl(category.getUrl());
-        oldCategory.setAltText(category.getAltText());
-        oldCategory.setId(id);
-        categoryRepository.save(oldCategory);
-        return Mapper.map(oldCategory, CategoryResponseDto.class)
-                .add(linkTo(methodOn(CategoryController.class).getById(id)).withSelfRel());
+        try {
+            Category category = Mapper.map(categoryDto, Category.class);
+            oldCategory.setName(category.getName());
+            oldCategory.setIsActive(category.getIsActive());
+            oldCategory.setUrl(category.getUrl());
+            oldCategory.setAltText(category.getAltText());
+            oldCategory.setId(id);
+            categoryRepository.save(oldCategory);
+            return Mapper.map(oldCategory, CategoryResponseDto.class)
+                    .add(linkTo(methodOn(CategoryController.class).getById(id)).withSelfRel());
+        }catch (org.springframework.dao.DataIntegrityViolationException ex){
+            throw  new AlreadyExistsException(String.format("Category name %s already registered", categoryDto.getName()));
+        }
     }
 
     @Override

@@ -1,1 +1,2 @@
- insert into account (id, username, email, pwd, profile_image, permission_id) values (1, 'customer', 'customer@customer.com', 'customer', 'profileImage',1);
+ insert into account (id, username, email, pwd, profile_image, permission_id) values (100, 'user', 'customer@customer.com', '$2a$12$VQSVztr/M8tcwzcy9jJgFebpqybKpF4FVwM3zilhOAI4yL1iW3rJa', 'profileImage',1);
+ insert into account (id, username, email, pwd, profile_image, permission_id) values (200, 'admin', 'admin@admin.com', '$2a$12$VQSVztr/M8tcwzcy9jJgFebpqybKpF4FVwM3zilhOAI4yL1iW3rJa', 'profileImage',2);

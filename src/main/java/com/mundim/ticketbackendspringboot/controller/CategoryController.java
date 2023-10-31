@@ -52,11 +52,6 @@ public class CategoryController {
                     content = @Content
             ),
             @ApiResponse(
-                    responseCode = "403",
-                    description = "Forbidden",
-                    content = @Content
-            ),
-            @ApiResponse(
                     responseCode = "500",
                     description = "HTTP Status Internal Server Error",
                     content = @Content(
@@ -152,11 +147,6 @@ public class CategoryController {
                     content = @Content
             ),
             @ApiResponse(
-                    responseCode = "403",
-                    description = "Forbidden",
-                    content = @Content
-            ),
-            @ApiResponse(
                     responseCode = "500",
                     description = "HTTP Status Internal Server Error",
                     content = @Content(
@@ -190,11 +180,6 @@ public class CategoryController {
             @ApiResponse(
                     responseCode = "401",
                     description = "Unauthorized",
-                    content = @Content
-            ),
-            @ApiResponse(
-                    responseCode = "403",
-                    description = "Forbidden",
                     content = @Content
             ),
             @ApiResponse(

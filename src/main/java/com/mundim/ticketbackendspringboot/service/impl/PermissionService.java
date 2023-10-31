@@ -51,11 +51,20 @@ public class PermissionService implements IPermissionService {
         Permission oldPermission = permissionRepository.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException("Permission", "id", Integer.toString(id))
         );
-        Permission permission = Mapper.map(permissionDto, Permission.class);
-        oldPermission.setRoleName(permission.getRoleName());
-        permissionRepository.save(oldPermission);
-        return Mapper.map(oldPermission, PermissionResponseDto.class)
-                .add(linkTo(methodOn(PermissionController.class).getById(id)).withSelfRel());
+        try{
+            Permission permission = Mapper.map(permissionDto, Permission.class);
+            oldPermission.setRoleName(permission.getRoleName());
+            permissionRepository.save(oldPermission);
+            return Mapper.map(oldPermission, PermissionResponseDto.class)
+                    .add(linkTo(methodOn(PermissionController.class).getById(id)).withSelfRel());
+        }catch (Exception ex){
+            throw new AlreadyExistsException(
+                    String
+                            .format("Permission name %s already registered",
+                                    permissionDto.getRoleName())
+            );
+        }
+
     }
 
     @Override
