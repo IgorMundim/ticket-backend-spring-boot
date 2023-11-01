@@ -102,7 +102,7 @@ class AccountServiceTest {
         assertEquals(AccountResponseDto.class, result.getClass());
         assertTrue(result.getLinks().toString().contains("</api/v1/account/{id}>;rel=\"self\",</api/v1/permission/1>;rel=\"self\""));
         assertEquals("UsernameTest1", result.getUsername());
-        assertEquals("EmailTest1", result.getEmail());
+        assertEquals("email@test.com", result.getEmail());
         assertEquals("ImageTest1", result.getProfileImage());
 
     }
@@ -122,7 +122,7 @@ class AccountServiceTest {
         assertEquals(AccountResponseDto.class, result.getClass());
         assertTrue(result.getLinks().toString().contains("</api/v1/account/{id}>;rel=\"self\",</api/v1/permission/1>;rel=\"self\""));
         assertEquals("UsernameTest1", result.getUsername());
-        assertEquals("EmailTest1", result.getEmail());
+        assertEquals("email@test.com", result.getEmail());
         assertEquals("ImageTest1", result.getProfileImage());
 
     }
@@ -137,7 +137,7 @@ class AccountServiceTest {
         assertNotNull(result.getId());
         assertEquals(Account.class, result.getClass());
         assertEquals("UsernameTest1", result.getUsername());
-        assertEquals("EmailTest1", result.getEmail());
+        assertEquals("email@test.com", result.getEmail());
         assertEquals("ImageTest1", result.getProfileImage());
     }
     @Test
@@ -154,7 +154,7 @@ class AccountServiceTest {
         assertTrue(result.getLinks().toString().contains("</api/v1/account/1>;rel=\"self\""));
         assertEquals(1L, result.getId());
         assertEquals("UsernameTest1", result.getUsername());
-        assertEquals("EmailTest1", result.getEmail());
+        assertEquals("email@test.com", result.getEmail());
         assertEquals("ImageTest1", result.getProfileImage());
     }
     @Test

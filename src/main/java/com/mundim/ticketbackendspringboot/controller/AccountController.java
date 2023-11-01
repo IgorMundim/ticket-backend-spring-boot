@@ -74,11 +74,6 @@ public class AccountController {
                     content = @Content
             ),
             @ApiResponse(
-                    responseCode = "403",
-                    description = "Forbidden",
-                    content = @Content
-            ),
-            @ApiResponse(
                     responseCode = "500",
                     description = "HTTP Status Internal Server Error",
                     content = @Content(
@@ -106,6 +101,11 @@ public class AccountController {
             @ApiResponse(
                     responseCode = "401",
                     description = "Unauthorized",
+                    content = @Content
+            ),
+            @ApiResponse(
+                    responseCode = "403",
+                    description = "Forbidden",
                     content = @Content
             ),
             @ApiResponse(
@@ -139,13 +139,6 @@ public class AccountController {
             @ApiResponse(
                     responseCode = "200",
                     description = "HTTP Status OK"
-            ),
-            @ApiResponse(
-                    responseCode = "400",
-                    description = "BAD REQUEST",
-                    content = @Content(
-                            schema = @Schema(implementation = ErrorResponseDto.class)
-                    )
             ),
             @ApiResponse(
                     responseCode = "401",

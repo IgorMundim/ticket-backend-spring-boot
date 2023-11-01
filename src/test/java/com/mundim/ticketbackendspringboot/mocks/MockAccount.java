@@ -25,7 +25,7 @@ public class MockAccount {
         Account account = new Account();
         account.setId(number.longValue());
         account.setUsername("UsernameTest"+number);
-        account.setEmail("EmailTest"+number);
+        account.setEmail("email@test.com");
         account.setPwd("PasswordTest"+number);
         account.setProfileImage("ImageTest"+number);
         return account;
@@ -33,7 +33,7 @@ public class MockAccount {
     public AccountRequestDto mockDto(Integer number){
         AccountRequestDto account = new AccountRequestDto();
         account.setUsername("UsernameTest"+number);
-        account.setEmail("EmailTest"+number);
+        account.setEmail("email@test.com");
         account.setPwd("PasswordTest"+number);
         account.setProfileImage("ImageTest"+number);
         return account;

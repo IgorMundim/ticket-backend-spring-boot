@@ -15,7 +15,7 @@ public class Account extends BaseEntity {
     @GeneratedValue(strategy= GenerationType.AUTO,generator="native")
     @GenericGenerator(name = "native")
     private Long id;
-
+    @Column(nullable = false, unique = true, length = 50)
     private String username;
 
     @Column(nullable = false, unique = true, length = 150)

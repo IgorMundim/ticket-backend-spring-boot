@@ -1,1 +1,1 @@
- delete from permission;
+ delete from PERMISSION;

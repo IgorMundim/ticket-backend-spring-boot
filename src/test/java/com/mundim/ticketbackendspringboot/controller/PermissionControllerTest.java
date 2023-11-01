@@ -4,7 +4,6 @@ import com.mundim.ticketbackendspringboot.dto.request.PermissionRequestDto;
 import com.mundim.ticketbackendspringboot.dto.response.ErrorResponseDto;
 import com.mundim.ticketbackendspringboot.dto.response.PermissionResponseDto;
 import com.mundim.ticketbackendspringboot.mocks.MockPermission;
-import com.mundim.ticketbackendspringboot.testcontainers.AbstractIntegrationTest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockitoAnnotations;
@@ -19,11 +18,9 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.assertj.core.api.Assertions.*;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@Sql(scripts = "/sql/permission/permission-insert.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 @Sql(scripts = "/sql/account/account-insert.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 @Sql(scripts = "/sql/account/account-delete.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
-@Sql(scripts = "/sql/permission/permission-delete.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
-class PermissionControllerTest extends AbstractIntegrationTest {
+class PermissionControllerTest {
     MockPermission input;
     @Autowired
     WebTestClient testClient;
@@ -35,7 +32,7 @@ class PermissionControllerTest extends AbstractIntegrationTest {
     }
     @Test
     public void testWillCreatePermission(){
-        PermissionRequestDto permissionDto = input.mockDto(1);
+        PermissionRequestDto permissionDto = input.mockDto(100);
         PermissionResponseDto result = testClient
                 .post()
                 .uri("/api/v1/permission/")
@@ -46,11 +43,11 @@ class PermissionControllerTest extends AbstractIntegrationTest {
                 .expectStatus().isCreated()
                 .expectBody(PermissionResponseDto.class)
                 .returnResult().getResponseBody();
-        assertThat(result.getRoleName()).isEqualTo("ROLE_1");
+        assertThat(result.getRoleName()).isEqualTo("ROLE_100");
     }
     @Test
     public void testWillThrowBadRequestWhenTryCreatePermissionWithPermissionRoleRegistered(){
-        PermissionRequestDto permissionDto = input.mockDto(1);
+        PermissionRequestDto permissionDto = input.mockDto(101);
         permissionDto.setRoleName("ROLE_CUSTOMER");
         ErrorResponseDto result = testClient
                 .post()
@@ -100,7 +97,7 @@ class PermissionControllerTest extends AbstractIntegrationTest {
     public void testWillGetPermissionById(){
         PermissionResponseDto result = testClient
                 .get()
-                .uri("/api/v1/permission/1")
+                .uri("/api/v1/permission/101")
                 .headers(JwtAuthentication.getHeaderAuthorization(testClient, "admin", "123456"))
                 .exchange()
                 .expectStatus().isOk()
@@ -147,7 +144,7 @@ class PermissionControllerTest extends AbstractIntegrationTest {
     public void testWillUpdatePermissionById(){
         PermissionResponseDto result = testClient
                 .patch()
-                .uri("/api/v1/permission/1")
+                .uri("/api/v1/permission/101")
                 .contentType(MediaType.APPLICATION_JSON)
                 .headers(JwtAuthentication.getHeaderAuthorization(testClient, "admin", "123456"))
                 .bodyValue(new PermissionRequestDto("ROLE_1"))
@@ -163,7 +160,7 @@ class PermissionControllerTest extends AbstractIntegrationTest {
         permissionDto.setRoleName("ROLE_ADMIN");
         ErrorResponseDto result = testClient
                 .patch()
-                .uri("/api/v1/permission/1")
+                .uri("/api/v1/permission/101")
                 .contentType(MediaType.APPLICATION_JSON)
                 .headers(JwtAuthentication.getHeaderAuthorization(testClient, "admin", "123456"))
                 .bodyValue(permissionDto)

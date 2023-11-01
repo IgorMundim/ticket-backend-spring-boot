@@ -5,14 +5,12 @@ import com.mundim.ticketbackendspringboot.dto.response.CategoryResponseDto;
 import com.mundim.ticketbackendspringboot.dto.response.ErrorResponseDto;
 import com.mundim.ticketbackendspringboot.dto.response.ResponseDto;
 import com.mundim.ticketbackendspringboot.mocks.MockCategory;
-import com.mundim.ticketbackendspringboot.testcontainers.AbstractIntegrationTest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
@@ -21,14 +19,9 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@Sql(scripts = "/sql/permission/permission-insert.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
-@Sql(scripts = "/sql/account/account-insert.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 @Sql(scripts = "/sql/category/category-insert.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
-@Sql(scripts = "/sql/account/account-delete.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
-@Sql(scripts = "/sql/permission/permission-delete.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
 @Sql(scripts = "/sql/category/category-delete.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
-
-class CategoryControllerTest extends AbstractIntegrationTest {
+class CategoryControllerTest {
     MockCategory input;
     @Autowired
     WebTestClient testClient;
@@ -60,7 +53,7 @@ class CategoryControllerTest extends AbstractIntegrationTest {
     @Test
     public void testWillThrowBadRequestWhenTryCreateCategoryWithPermissionNameRegistered(){
         CategoryRequestDto entityDto = input.mockDto(1);
-        entityDto.setName("CategoryName");
+        entityDto.setName("categoryName");
 
         ErrorResponseDto resultError = testClient
                 .post()
@@ -72,7 +65,7 @@ class CategoryControllerTest extends AbstractIntegrationTest {
                 .expectStatus().isBadRequest()
                 .expectBody(ErrorResponseDto.class)
                 .returnResult().getResponseBody();
-        assertThat(resultError.getErrorMessage()).isEqualTo("Category name CategoryName already registered");
+        assertThat(resultError.getErrorMessage()).isEqualTo("Category name categoryName already registered");
     }
 
     @Test
@@ -110,7 +103,7 @@ class CategoryControllerTest extends AbstractIntegrationTest {
     public void testGetCategory(){
         CategoryResponseDto result = testClient
                 .get()
-                .uri("/api/v1/category/100")
+                .uri("/api/v1/category/101")
                 .headers(JwtAuthentication.getHeaderAuthorization(testClient, "admin", "123456"))
                 .exchange()
                 .expectStatus().isOk()
@@ -154,10 +147,10 @@ class CategoryControllerTest extends AbstractIntegrationTest {
 
     @Test
     public void testWillUpdateCategoryById(){
-        CategoryRequestDto entityDto = input.mockDto(100);
+        CategoryRequestDto entityDto = input.mockDto(101);
         CategoryResponseDto result = testClient
                 .patch()
-                .uri("/api/v1/category/100")
+                .uri("/api/v1/category/101")
                 .contentType(MediaType.APPLICATION_JSON)
                 .headers(JwtAuthentication.getHeaderAuthorization(testClient, "admin", "123456"))
                 .bodyValue(entityDto)
@@ -166,9 +159,9 @@ class CategoryControllerTest extends AbstractIntegrationTest {
                 .expectBody(CategoryResponseDto.class)
                 .returnResult().getResponseBody();
         assertThat(result.getIsActive()).isEqualTo(true);
-        assertThat(result.getAltText()).isEqualTo("AltTextTest100");
-        assertThat(result.getUrl()).isEqualTo("UrlTest100");
-        assertThat(result.getName()).isEqualTo("NameTest100");
+        assertThat(result.getAltText()).isEqualTo("AltTextTest101");
+        assertThat(result.getUrl()).isEqualTo("UrlTest101");
+        assertThat(result.getName()).isEqualTo("NameTest101");
     }
 
     @Test
@@ -203,7 +196,7 @@ class CategoryControllerTest extends AbstractIntegrationTest {
         CategoryRequestDto entityDto = input.mockDto(1);
         ErrorResponseDto result = testClient
                 .patch()
-                .uri("/api/v1/category/100")
+                .uri("/api/v1/category/101")
                 .headers(JwtAuthentication.getHeaderAuthorization(testClient, "user", "123456"))
                 .bodyValue(entityDto)
                 .exchange()
@@ -218,7 +211,7 @@ class CategoryControllerTest extends AbstractIntegrationTest {
         CategoryRequestDto entityDto = input.mockDto(1);
         ErrorResponseDto result = testClient
                 .patch()
-                .uri("/api/v1/category/100")
+                .uri("/api/v1/category/101")
                 .bodyValue(entityDto)
                 .exchange()
                 .expectStatus().isUnauthorized()
@@ -231,7 +224,7 @@ class CategoryControllerTest extends AbstractIntegrationTest {
     public void testDeleteCategory(){
         ResponseDto result = testClient
                 .delete()
-                .uri("/api/v1/category/100")
+                .uri("/api/v1/category/101")
                 .headers(JwtAuthentication.getHeaderAuthorization(testClient, "admin", "123456"))
                 .exchange()
                 .expectStatus().isOk()

@@ -33,7 +33,7 @@ public class MockAccountAddress {
         Address entity = new Address();
         MockAccount inputAccount = new MockAccount();
         entity.setId(number.longValue());
-        entity.setMobileNumber("MobileNumberTest"+number);
+        entity.setMobileNumber("123456789123");
         entity.setZipcode("12345678");
         entity.setComplement("ComplementTest"+number);
         entity.setNeighborhood("NeighborhoodTest"+number);
@@ -47,11 +47,11 @@ public class MockAccountAddress {
 
     public AddressRequestDto mockDto(Integer number){
         AddressRequestDto entity = new AddressRequestDto();
-        entity.setMobileNumber("MobileNumberTest"+number);
+        entity.setMobileNumber("123456789123");
         entity.setZipcode("12345678");
         entity.setComplement("ComplementTest"+number);
         entity.setNeighborhood("NeighborhoodTest"+number);
-        entity.setNumber("NumberTest"+number);
+        entity.setNumber("123456");
         entity.setCity("CityTest"+number);
         entity.setStreet("StreetTest"+number);
         entity.setUf("MG");

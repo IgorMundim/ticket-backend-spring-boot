@@ -77,12 +77,12 @@ class AccountAddressServiceTest {
         assertNotNull(result);
         assertEquals(AddressResponseDto.class, result.getClass());
         assertTrue(result.getLinks().toString().contains("</api/v1/account/address/{id}>;rel=\"self\",</api/v1/account/1>;rel=\"Account\""));
-        assertEquals("MobileNumberTest1", result.getMobileNumber());
+        assertEquals("123456789123", result.getMobileNumber());
         assertEquals("12345678", result.getZipcode());
         assertEquals("ComplementTest1", result.getComplement());
         assertEquals("CityTest1", result.getCity());
         assertEquals("NeighborhoodTest1", result.getNeighborhood());
-        assertEquals("NumberTest1",result.getNumber());
+        assertEquals("123456",result.getNumber());
         assertEquals("StreetTest1", result.getStreet());
         assertEquals("MG", result.getUf());
     }
@@ -96,7 +96,7 @@ class AccountAddressServiceTest {
         assertNotNull(result);
         assertEquals(AddressResponseDto.class, result.getClass());
         assertTrue(result.getLinks().toString().contains("</api/v1/account/address/1>;rel=\"self\",</api/v1/account/1>;rel=\"Account\""));
-        assertEquals("MobileNumberTest1", result.getMobileNumber());
+        assertEquals("123456789123", result.getMobileNumber());
         assertEquals("12345678", result.getZipcode());
         assertEquals("ComplementTest1", result.getComplement());
         assertEquals("CityTest1", result.getCity());
@@ -117,12 +117,12 @@ class AccountAddressServiceTest {
         assertNotNull(result);
         assertEquals(AddressResponseDto.class, result.getClass());
         assertTrue(result.getLinks().toString().contains("</api/v1/account/address/1>;rel=\"self\",</api/v1/account/1>;rel=\"Account\""));
-        assertEquals("MobileNumberTest2", result.getMobileNumber());
+        assertEquals("123456789123", result.getMobileNumber());
         assertEquals("12345678", result.getZipcode());
         assertEquals("ComplementTest2", result.getComplement());
         assertEquals("CityTest2", result.getCity());
         assertEquals("NeighborhoodTest2", result.getNeighborhood());
-        assertEquals("NumberTest2",result.getNumber());
+        assertEquals("123456",result.getNumber());
         assertEquals("StreetTest2", result.getStreet());
         assertEquals("MG", result.getUf());
     }
