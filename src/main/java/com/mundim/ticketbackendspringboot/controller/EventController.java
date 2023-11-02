@@ -49,11 +49,6 @@ public class EventController {
                     content = @Content
             ),
             @ApiResponse(
-                    responseCode = "403",
-                    description = "Forbidden",
-                    content = @Content
-            ),
-            @ApiResponse(
                     responseCode = "500",
                     description = "HTTP Status Internal Server Error",
                     content = @Content(
@@ -152,9 +147,11 @@ public class EventController {
                     content = @Content
             ),
             @ApiResponse(
-                    responseCode = "403",
-                    description = "Forbidden",
-                    content = @Content
+                    responseCode = "404",
+                    description = "Resource not found with the given input data",
+                    content = @Content(
+                            schema = @Schema(implementation = ErrorResponseDto.class)
+                    )
             ),
             @ApiResponse(
                     responseCode = "500",
@@ -186,9 +183,11 @@ public class EventController {
                     content = @Content
             ),
             @ApiResponse(
-                    responseCode = "403",
-                    description = "Forbidden",
-                    content = @Content
+            responseCode = "404",
+            description = "Resource not found with the given input data",
+            content = @Content(
+                    schema = @Schema(implementation = ErrorResponseDto.class)
+            )
             ),
             @ApiResponse(
                     responseCode = "500",
