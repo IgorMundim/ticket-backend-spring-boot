@@ -34,7 +34,7 @@ public class MockEventAddress {
         MockEvent inputEvent = new MockEvent();
         entity.setEvent(inputEvent.mockEntity(2));
         entity.setId(number.longValue());
-        entity.setMobileNumber("MobileNumberTest"+number);
+        entity.setMobileNumber("123456789123");
         entity.setZipcode("12345678");
         entity.setComplement("ComplementTest"+number);
         entity.setNeighborhood("NeighborhoodTest"+number);
@@ -47,7 +47,7 @@ public class MockEventAddress {
 
     public AddressRequestDto mockDto(Integer number){
         AddressRequestDto entity = new AddressRequestDto();
-        entity.setMobileNumber("MobileNumberTest"+number);
+        entity.setMobileNumber("123456789123");
         entity.setZipcode("12345678");
         entity.setComplement("ComplementTest"+number);
         entity.setNeighborhood("NeighborhoodTest"+number);
