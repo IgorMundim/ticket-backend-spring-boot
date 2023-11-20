@@ -91,6 +91,7 @@ class EventAddressControllerTest {
         ErrorResponseDto result = testClient
                 .post()
                 .uri("/api/v1/event/110/address")
+                .headers(JwtAuthentication.getHeaderAuthorization(testClient, "user", "123456"))
                 .contentType(MediaType.APPLICATION_JSON)
                 .bodyValue(entityDto)
                 .exchange()
@@ -194,7 +195,7 @@ class EventAddressControllerTest {
         AddressRequestDto entityDto = input.mockDto(101);
         ErrorResponseDto result = testClient
                 .patch()
-                .uri("/api/v1/event/101")
+                .uri("/api/v1/event/address/101")
                 .contentType(MediaType.APPLICATION_JSON)
                 .bodyValue(entityDto)
                 .exchange()

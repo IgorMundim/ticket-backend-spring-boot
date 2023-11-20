@@ -77,7 +77,7 @@ class EventAddressServiceTest {
         assertNotNull(result);
         assertEquals(AddressResponseDto.class, result.getClass());
         assertTrue(result.getLinks().toString().contains("</api/v1/event/address/{id}>;rel=\"self\",</api/v1/event/1>;rel=\"Event\""));
-        assertEquals("MobileNumberTest1", result.getMobileNumber());
+        assertEquals("123456789123", result.getMobileNumber());
         assertEquals("12345678", result.getZipcode());
         assertEquals("ComplementTest1", result.getComplement());
         assertEquals("CityTest1", result.getCity());
@@ -96,7 +96,7 @@ class EventAddressServiceTest {
         assertNotNull(result);
         assertEquals(AddressResponseDto.class, result.getClass());
         assertTrue(result.getLinks().toString().contains("</api/v1/event/address/1>;rel=\"self\",</api/v1/event/2>;rel=\"Event\""));
-        assertEquals("MobileNumberTest1", result.getMobileNumber());
+        assertEquals("123456789123", result.getMobileNumber());
         assertEquals("12345678", result.getZipcode());
         assertEquals("ComplementTest1", result.getComplement());
         assertEquals("CityTest1", result.getCity());
@@ -117,7 +117,7 @@ class EventAddressServiceTest {
         assertNotNull(result);
         assertEquals(AddressResponseDto.class, result.getClass());
         assertTrue(result.getLinks().toString().contains("</api/v1/event/1/address/>;rel=\"self\",</api/v1/event/2>;rel=\"Event\""));
-        assertEquals("MobileNumberTest2", result.getMobileNumber());
+        assertEquals("123456789123", result.getMobileNumber());
         assertEquals("12345678", result.getZipcode());
         assertEquals("ComplementTest2", result.getComplement());
         assertEquals("CityTest2", result.getCity());
