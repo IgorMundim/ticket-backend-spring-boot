@@ -74,11 +74,6 @@ public class AccountController {
                     content = @Content
             ),
             @ApiResponse(
-                    responseCode = "403",
-                    description = "Forbidden",
-                    content = @Content
-            ),
-            @ApiResponse(
                     responseCode = "500",
                     description = "HTTP Status Internal Server Error",
                     content = @Content(
@@ -93,9 +88,10 @@ public class AccountController {
         AccountResponseDto responseDto = iAccountService.createAdmin(accountDto);
         return ResponseEntity.status(201).body(responseDto);
     }
+
     @Operation(
             summary = "Fetch Account REST API",
-            description = "REST API to fetch Account Address"
+            description = "REST API to fetch Account"
     )
     @ApiResponses({
             @ApiResponse(
@@ -105,6 +101,11 @@ public class AccountController {
             @ApiResponse(
                     responseCode = "401",
                     description = "Unauthorized",
+                    content = @Content
+            ),
+            @ApiResponse(
+                    responseCode = "403",
+                    description = "Forbidden",
                     content = @Content
             ),
             @ApiResponse(
@@ -126,7 +127,7 @@ public class AccountController {
     @SecurityRequirement(name = "basicAuth")
     @GetMapping(path = "/{id}")
     @PreAuthorize("#id == authentication.principal.id")
-    public ResponseEntity<AccountResponseDto> fetchById(@Valid @PathVariable Long id){
+    public ResponseEntity<AccountResponseDto> getById(@Valid @PathVariable Long id){
         AccountResponseDto responseDto = iAccountService.fetchById(id);
         return ResponseEntity.ok().body(responseDto);
     }
@@ -138,13 +139,6 @@ public class AccountController {
             @ApiResponse(
                     responseCode = "200",
                     description = "HTTP Status OK"
-            ),
-            @ApiResponse(
-                    responseCode = "400",
-                    description = "BAD REQUEST",
-                    content = @Content(
-                            schema = @Schema(implementation = ErrorResponseDto.class)
-                    )
             ),
             @ApiResponse(
                     responseCode = "401",

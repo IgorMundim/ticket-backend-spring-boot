@@ -3,6 +3,8 @@ package com.mundim.ticketbackendspringboot.service;
 import com.mundim.ticketbackendspringboot.dto.request.CategoryRequestDto;
 import com.mundim.ticketbackendspringboot.dto.response.CategoryResponseDto;
 
+import java.util.List;
+
 public interface ICategoryService {
     /**
      *
@@ -16,6 +18,18 @@ public interface ICategoryService {
      * @return Category Details based on a given id
      */
     CategoryResponseDto fetch(Long id);
+
+    /**
+     *
+     * @param id - Input Event ID
+     * @return Category Details based on a given id
+     */
+    List<CategoryResponseDto> fetchAllByEventId(Long id);
+    /**
+     *
+     * @return All Category Details
+     */
+    List<CategoryResponseDto> fetchAll();
 
     /**
      *

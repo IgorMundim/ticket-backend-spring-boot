@@ -1,9 +1,9 @@
 package com.mundim.ticketbackendspringboot.service.impl;
 
+import com.mundim.ticketbackendspringboot.controller.EventController;
+import com.mundim.ticketbackendspringboot.controller.LocationController;
 import com.mundim.ticketbackendspringboot.dto.request.LocationRequestDto;
-import com.mundim.ticketbackendspringboot.dto.response.BatchResponseDto;
 import com.mundim.ticketbackendspringboot.dto.response.LocationResponseDto;
-import com.mundim.ticketbackendspringboot.entity.Batch;
 import com.mundim.ticketbackendspringboot.entity.Event;
 import com.mundim.ticketbackendspringboot.entity.Location;
 import com.mundim.ticketbackendspringboot.exception.ResourceNotFoundException;
@@ -16,6 +16,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 
 @RequiredArgsConstructor
@@ -33,7 +36,9 @@ public class LocationService implements ILocationService {
         Location location = Mapper.map(locationDto, Location.class);
         location.setEvent(event);
         locationRepository.save(location);
-        return Mapper.map(location, LocationResponseDto.class);
+        return Mapper.map(location, LocationResponseDto.class)
+                .add(linkTo(methodOn(LocationController.class).getById(location.getId())).withSelfRel())
+                .add(linkTo(methodOn(EventController.class).getById(location.getEvent().getId())).withRel("Event"));
     }
 
 
@@ -42,24 +47,39 @@ public class LocationService implements ILocationService {
         Location location = locationRepository.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException("Location", "id", Long.toString(id))
         );
-        return Mapper.map(location, LocationResponseDto.class);
+        return Mapper.map(location, LocationResponseDto.class)
+                .add(linkTo(methodOn(LocationController.class).getById(location.getId())).withSelfRel())
+                .add(linkTo(methodOn(EventController.class).getById(location.getEvent().getId())).withRel("Event"));
     }
 
     @Override
     public LocationResponseDto update(LocationRequestDto locationDto, Long id) {
-        locationRepository.findById(id).orElseThrow(
+        Location oldLocation = locationRepository.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException("Location", "id", Long.toString(id))
         );
         Location location = Mapper.map(locationDto, Location.class);
-        location.setId(id);
-        locationRepository.save(location);
-        return Mapper.map(location, LocationResponseDto.class);
+        oldLocation.setName(location.getName());
+        oldLocation.setDescription(location.getDescription());
+        oldLocation.setIsActive(location.getIsActive());
+        oldLocation.setStorePrice(location.getStorePrice());
+        oldLocation.setSalePrice(location.getSalePrice());
+        oldLocation.setStudentPrice(location.getStudentPrice());
+        oldLocation.setUnitsSolid(location.getUnitsSolid());
+        oldLocation.setUnits(location.getUnits());
+        locationRepository.save(oldLocation);
+        return Mapper.map(oldLocation, LocationResponseDto.class)
+                .add(linkTo(methodOn(LocationController.class).getById(id)).withSelfRel())
+                .add(linkTo(methodOn(EventController.class).getById(oldLocation.getEvent().getId())).withRel("Event"));
     }
 
     @Override
     public List<LocationResponseDto> fetchAll(Long id) {
-        List<Location> location = locationRepository.findByEventId(id);
-        return  Mapper.mapList(location, LocationResponseDto.class);
+        List<LocationResponseDto> locations = Mapper.mapList(locationRepository.findByEventId(id),LocationResponseDto.class );
+        locations
+                .forEach(p -> Mapper.map(p, LocationResponseDto.class)
+                        .add(linkTo(methodOn(LocationController.class).getById(p.getId())).withSelfRel())
+                        .add(linkTo(methodOn(EventController.class).getById(id)).withRel("Event")));
+        return  locations;
     }
 
 }

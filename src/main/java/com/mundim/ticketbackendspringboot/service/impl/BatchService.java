@@ -1,6 +1,8 @@
 package com.mundim.ticketbackendspringboot.service.impl;
 
 
+import com.mundim.ticketbackendspringboot.controller.BatchController;
+import com.mundim.ticketbackendspringboot.controller.EventController;
 import com.mundim.ticketbackendspringboot.dto.request.BatchRequestDto;
 import com.mundim.ticketbackendspringboot.dto.response.BatchResponseDto;
 import com.mundim.ticketbackendspringboot.entity.Batch;
@@ -15,6 +17,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 
 @RequiredArgsConstructor
@@ -32,7 +37,9 @@ public class BatchService implements IBatchService {
         Batch batch = Mapper.map(batchDto, Batch.class);
         batch.setEvent(event);
         batchRepository.save(batch);
-        return Mapper.map(batch, BatchResponseDto.class);
+        return Mapper.map(batch, BatchResponseDto.class)
+                .add(linkTo(methodOn(BatchController.class).getById(batch.getId())).withSelfRel())
+                .add(linkTo(methodOn(EventController.class).getById(event.getId())).withRel("Event"));
     }
 
     @Override
@@ -40,24 +47,36 @@ public class BatchService implements IBatchService {
         Batch batch = batchRepository.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException("Batch", "id", Long.toString(id))
         );
-        return Mapper.map(batch, BatchResponseDto.class);
+        return Mapper.map(batch, BatchResponseDto.class)
+                .add(linkTo(methodOn(BatchController.class).getById(batch.getId())).withSelfRel())
+                .add(linkTo(methodOn(EventController.class).getById(batch.getEvent().getId())).withRel("Event"));
     }
 
     @Override
     public BatchResponseDto update(BatchRequestDto batchDto, Long id) {
-        batchRepository.findById(id).orElseThrow(
+        Batch oldBatch = batchRepository.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException("Batch", "id", Long.toString(id))
         );
         Batch batch = Mapper.map(batchDto, Batch.class);
-        batch.setId(id);
-        batchRepository.save(batch);
-        return Mapper.map(batch, BatchResponseDto.class);
+        oldBatch.setPercentage(batch.getPercentage());
+        oldBatch.setBatchStopDate(batch.getBatchStopDate());
+        oldBatch.setSalesQtd(batch.getSalesQtd());
+        oldBatch.setDescription(batch.getDescription());
+        oldBatch.setIsActive(batch.getIsActive());
+        batchRepository.save(oldBatch);
+        return Mapper.map(oldBatch, BatchResponseDto.class)
+                .add(linkTo(methodOn(BatchController.class).getById(oldBatch.getId())).withSelfRel())
+                .add(linkTo(methodOn(EventController.class).getById(oldBatch.getEvent().getId())).withRel("Event"));
     }
 
     @Override
     public List<BatchResponseDto> fetchAll(Long id) {
-        List<Batch> batch = batchRepository.findByEventId(id);
-        return  Mapper.mapList(batch, BatchResponseDto.class);
+        List<BatchResponseDto> batches = Mapper.mapList(batchRepository.findByEventId(id), BatchResponseDto.class);
+         batches
+                 .forEach(p -> Mapper.map(p, BatchResponseDto.class)
+                        .add(linkTo(methodOn(BatchController.class).getById(p.getId())).withSelfRel())
+                        .add(linkTo(methodOn(EventController.class).getById(id)).withRel("Event")));
+        return  batches;
     }
 
 }

@@ -15,7 +15,7 @@ public class Account extends BaseEntity {
     @GeneratedValue(strategy= GenerationType.AUTO,generator="native")
     @GenericGenerator(name = "native")
     private Long id;
-
+    @Column(nullable = false, unique = true, length = 50)
     private String username;
 
     @Column(nullable = false, unique = true, length = 150)
@@ -29,9 +29,5 @@ public class Account extends BaseEntity {
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST, targetEntity = Permission.class)
     @JoinColumn(name = "permission_id", referencedColumnName = "id")
     private Permission permission;
-
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, targetEntity = Address.class)
-    @JoinColumn(name = "address_id", referencedColumnName = "id")
-    private Address address;
 
 }

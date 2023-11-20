@@ -3,6 +3,7 @@ package com.mundim.ticketbackendspringboot.dto.response;
 import com.mundim.ticketbackendspringboot.entity.Address;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
+import org.springframework.hateoas.RepresentationModel;
 
 @Getter
 @Setter
@@ -13,7 +14,7 @@ import lombok.*;
         name = "ProducerResponse",
         description = "Schema to hold Producer response information"
 )
-public class ProducerResponseDto extends BaseDto{
+public class ProducerResponseDto extends RepresentationModel<ProducerResponseDto> {
     private Long id;
     private String mobileNumber;
     private String email;

@@ -37,4 +37,8 @@ public class Address extends BaseEntity{
 
     @Column(nullable = false, length = 2)
     String uf;
+
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, orphanRemoval = true, targetEntity = Account.class)
+    @JoinColumn(name = "account_id", referencedColumnName = "id")
+    private Account account;
 }

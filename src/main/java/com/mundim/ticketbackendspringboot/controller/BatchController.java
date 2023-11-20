@@ -169,7 +169,7 @@ public class BatchController {
     }
     )
     @GetMapping("/{id}/batch")
-    public ResponseEntity<List<BatchResponseDto>> findAllByIdEvent(@PathVariable Long id){
+    public ResponseEntity<List<BatchResponseDto>> getAllByIdEvent(@PathVariable Long id){
         List<BatchResponseDto> a = iBatchService.fetchAll(id);
         return ResponseEntity.status(200).body(a);
     }
